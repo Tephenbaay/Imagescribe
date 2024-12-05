@@ -11,3 +11,9 @@ messages.pot
 sample outputs
 model_9.h5
 remove_missing_features.py
+features_flickr8k.pkl
+features.pkl
+image_captioning_model.h5
+remove_missing_features.py
+tokenizer_flickr8k.pkl
+tokenizer.p

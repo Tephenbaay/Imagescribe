@@ -6,7 +6,6 @@ import torch
 from transformers import BlipProcessor, BlipForConditionalGeneration, GPT2LMHeadModel, GPT2Tokenizer
 import random
 from train_model import generate_category
-from flask_babel import Babel, gettext as _
 import spacy
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -17,9 +16,15 @@ from waitress import serve
 
 # Create Flask app instance
 app = Flask(__name__)
-babel = Babel(app)
 
 pymysql.install_as_MySQLdb()
+
+# Fetch environment variables
+DB_HOST = os.getenv('AWS_RDS_HOST')
+DB_PORT = os.getenv('AWS_RDS_PORT', '3306')  # Default to 5432 for PostgreSQL
+DB_USER = os.getenv('AWS_RDS_USER')
+DB_PASSWORD = os.getenv('AWS_RDS_PASSWORD')
+DB_NAME = os.getenv('AWS_RDS_DB_NAME')
 
 # Database URI for AWS RDS MySQL
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:Imagescribe11!@imagescribe.cx6aooymq47o.ap-southeast-2.rds.amazonaws.com/imagescribe'
@@ -228,7 +233,6 @@ def signup():
 
 @app.route('/index')
 def index():
-    greeting = _("Welcome to the multilingual app!")
     return render_template('index.html', captions=generated_captions, descriptions=generated_descriptions)
 
 uploads_directory = os.path.join('static', 'uploads')
@@ -293,4 +297,4 @@ def upload():
 # Remove the db.create_all() here and instead, handle migrations with Flask-Migrate
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    serve(app, host='0.0.0.0', port=int(os.getenv('PORT', 5000)))
