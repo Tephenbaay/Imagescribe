@@ -1,51 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" href="/static/logo.png/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>ImageScribe</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='signstyle.css') }}">
 </head>
-<body class="bg-gray-100">
+<body>
+    <h1>ImageScribe</h1>
+    <div class="container">
+        <h2>Sign Up</h2>
 
-    <div class="flex items-center justify-center min-h-screen">
-        <div class="bg-white p-8 rounded-lg shadow-lg w-full sm:w-96">
-            <h2 class="text-3xl font-semibold text-center text-gray-800 mb-6">Create Account</h2>
-            <form method="POST">
-                <div class="mb-6">
-                    <label for="username" class="block text-gray-700 text-sm font-medium mb-2">Username</label>
-                    <input type="text" name="username" id="username" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+        <form action="/signup" method="post" id="signupForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="username" id="username" name="username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group" id="passwordGroup">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <img src="{{ url_for('static', filename='images/eyecon1.png') }}" onclick="togglePassword()" class="eyecon" id="eyecon" alt="Show/Hide Password">
+                <div class="password-requirements" id="requirements">
+                    <ul>
+                        <li>Be at least 8 characters long</li>
+                        <li>Include at least one special character (e.g., @, #, $, %)</li>
+                        <li>Contain at least two numbers</li>
+                    </ul>
                 </div>
-                <div class="mb-6">
-                    <label for="email" class="block text-gray-700 text-sm font-medium mb-2">Email</label>
-                    <input type="email" name="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                </div>
-                <div class="mb-6">
-                    <label for="password" class="block text-gray-700 text-sm font-medium mb-2">Password</label>
-                    <input type="password" name="password" id="password" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                </div>
-                <div class="flex items-center justify-between mb-6">
-                    <button type="submit" class="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        Sign Up
-                    </button>
-                </div>
-            </form>
-            <p class="text-center text-sm text-gray-600">
-                Already have an account? 
-                <a href="{{ url_for('login') }}" class="text-blue-600 hover:text-blue-700">Login</a>
-            </p>
-        </div>
+                <p class="error-message" id="error-message">Password does not meet requirements.</p>
+            </div>
+
+            <button type="submit" class="btn">Sign Up</button>
+        </form>
     </div>
-<!-- Add this script to show the message pop-up on successful actions -->
-<script>
-    // Check if there is any flash message
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            // Show message in a popup
-            alert(messages[0]);
-        {% endif %}
-    {% endwith %}
-</script>
 
+    <script>
+        function togglePassword() {
+            var passwordField = document.getElementById('password');
+            var eyeIcon = document.getElementById('eyecon');
+
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text'; // Show password
+                eyeIcon.src = '{{ url_for("static", filename="images/eyecon.png") }}'; // Change to hide icon
+            } else {
+                passwordField.type = 'password'; // Hide password
+                eyeIcon.src = '{{ url_for("static", filename="images/eyecon1.png") }}'; // Change back to show icon
+            }
+        }
+
+        document.getElementById('signupForm').addEventListener('submit', function (event) {
+            const password = document.getElementById('password').value;
+            const passwordGroup = document.getElementById('passwordGroup');
+            const errorMessage = document.getElementById('error-message');
+
+            // Validate password requirements
+            const isValid = validatePassword(password);
+            if (!isValid) {
+                event.preventDefault(); // Prevent form submission
+                passwordGroup.classList.add('error'); // Add error class
+                errorMessage.classList.add('show'); // Show error message
+            } else {
+                passwordGroup.classList.remove('error'); // Remove error class if valid
+                errorMessage.classList.remove('show'); // Hide error message
+            }
+        });
+
+        // Prevent hiding the error message when the user focuses on the password field
+        document.getElementById('password').addEventListener('focus', function () {
+            const passwordGroup = document.getElementById('passwordGroup');
+            const errorMessage = document.getElementById('error-message');
+
+            if (passwordGroup.classList.contains('error')) {
+                errorMessage.classList.add('show'); // Keep showing error message if it's already triggered
+            }
+        });
+
+        function validatePassword(password) {
+            const minLength = 8;
+            const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/; // Regex for special characters
+            const numberRegex = /\d.*\d/; // Regex for at least two numbers
+            return (
+                password.length >= minLength &&
+                specialCharRegex.test(password) &&
+                numberRegex.test(password)
+            );
+        }
+    </script>
 </body>
 </html>

@@ -1,0 +1,112 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 50px;
+    background-color: #F9E8C9;
+    background-image: url('/static/images/ava5.png/');
+    background-repeat: no-repeat;
+    background-position-x: 1000px;
+    background-position-y: 120px;
+    background-size: 690px
+}
+
+#horizontal-line{
+    width : 50%;
+    height: 7px;
+    border: 0 none;
+    margin-right: auto;
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 90px;
+    background-color: black;
+}
+
+h1 {
+    color: #A271EF;
+    font-size: 100px;
+    margin-right: 910px;
+    margin-left: 20px;
+}
+
+h4 {
+    color: #A271EF;
+    font-size: 35px;
+    margin-right: 890px;
+    margin-left: 20px;
+}
+
+p {
+    color: #A271EF;
+    font-size: 20px;
+    margin-right: 890px;
+    margin-left: 20px;
+}
+
+.buttons {
+    margin-top: 40px;
+    margin-right: 900px;
+    margin-left: 20px;
+}
+.btn {
+    background-color: #E1B7D0;
+    color: white;
+    padding: 25px 70px;
+    margin: 30px;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 50px;
+}
+.btn:hover {
+    background-color: #DC98C0;
+}
+
+.button {
+    margin-top: 100px;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 20px;
+    display: flex;
+
+}
+
+.btn1{
+    color: #A271EF;
+    margin-right: 220px;
+    margin-left: 0px;
+    padding: 10px 20px;
+    background-color: #F9E8C9;
+    border: #F9E8C9;
+    font-size: 30px;
+}
+
+.btn2{
+    color: #A271EF;
+    margin-right: 240px;
+    margin-left: 0px;
+    padding: 10px 20px;
+    background-color: #F9E8C9;
+    border: #F9E8C9;
+    font-size: 30px;
+}
+
+.btn3{
+    color: #A271EF;
+    margin-right: 0px;
+    margin-left: 0px;
+    padding: 10px 20px;
+    background-color: #F9E8C9;
+    border: #F9E8C9;
+    font-size: 30px;
+}
+
+.btn1:hover{
+    color: #BC00FE;
+}
+
+.btn2:hover{
+    color: #BC00FE;
+}
+.btn3:hover{
+    color: #BC00FE;
+}

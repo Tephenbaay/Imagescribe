@@ -1,0 +1,275 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ECF2FF;
+    margin: 0;
+    padding: 0;
+}
+
+/* Sticky Header */
+header {
+    background-color: #645CBB;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 10px;
+    position: fixed; /* Make the header sticky */
+    top: 0; /* Sticks to the top of the screen */
+    width: 98.9%;
+    z-index: 1000; /* Ensure it stays above other content */
+}
+
+/* Wrapper for main content and container */
+.main-wrapper {
+    display: flex;
+    flex-direction: row;
+    height: 80vh;
+    padding-top: 70px;
+    align-content: flex-start;
+    justify-content: space-between;
+    align-items: stretch;
+    flex-wrap: wrap;
+}
+
+/* Scrollable main content */
+.main-content {
+    flex: 1;
+    overflow-y: auto; /* Allows scrolling for the content */
+    padding: 50px;
+    background-color: #ECF2FF;
+    scrollbar-width: none; /* For Firefox */
+    margin-left: 13%;
+}
+
+/* For Webkit browsers (Chrome, Safari) */
+.main-content::-webkit-scrollbar {
+    display: none; /* Hides the scrollbar */
+}
+
+/* Sticky container at the bottom */
+.container {
+    background-color: #645CBB;
+    padding: 10px;
+    position: fixed;
+    bottom: 0; /* Sticks to the bottom of the screen */
+    width: 50%;
+    margin-left: 30%;
+    z-index: 1000;
+    border-radius: 30px;
+}
+
+/* Form styling */
+.form-group {
+    margin-bottom: 10px;
+    display: inline-table;
+}
+
+.control-label {
+    font-size: 1.2em;
+    color: #8b4513;
+}
+
+.form-control {
+    padding: 10px;
+    border-radius: 5px;
+    border: #BFACE2;
+    background-color: #BFACE2;
+    width: 67%;
+    margin-left: 10%;
+}
+
+.btnsuccess{
+    background-color: #BFACE2;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin-left: 700%;
+}
+
+.text-right {
+    text-align: right;
+    margin-right: 10%; /* Adjust margin as needed */
+    position: center;
+}
+
+.btn12{
+    background-color: #ECF2FF;
+    color: #ECF2FF;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin-left: 700%;
+    position: auto;
+}
+
+.btn-success {
+    background-color: #BFACE2;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin-left: 700%;
+    position: auto;
+}
+
+.btn-success:hover {
+    background-color: #76619e;
+}
+
+/* Image and result styling */
+img {
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+.entry{
+    margin-left: 70%;
+}
+
+h2, h3 {
+    color: #000000;
+    text-align: left;
+}
+
+hr {
+    border: 1px solid #645CBB;
+}
+
+/* Add some padding for the buttons */
+.btn {
+    margin-top: 10px;
+}
+
+.sidebar {
+    background-color: #645CBB;
+    width: 250px;
+    height: 1000px;
+    padding: 80px;
+    box-sizing: border-box;
+    position: fixed;
+}
+
+.user-account {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    margin-top: -50%;
+    color: #805f31;
+    border-radius: 10px;
+}
+ 
+.btn0{
+    background-color: #645CBB;
+    border-radius: 10px;
+
+}
+
+.btn1{
+    background-color: #645CBB;
+    border-radius: 10px;
+}
+
+.user-account img {
+    margin-top: 0%;
+    width: 40px;
+    height: 40px;
+    margin-left: -60%;
+}
+
+h4{
+    font-size: 30px;
+}
+
+h2 {
+    margin-top: 0;
+    font-size: 30px;
+    margin-left: 0%;
+}
+
+.history-entry {
+    margin-top: 10px;
+    font-size: 14px;
+    margin-left: -60%;
+}
+
+.category-container {
+    width: 11%; /* Takes the full width of the sidebar */
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #645CBB;
+    border-radius: 10px;
+    margin-left: 0%;
+    margin-top: 28%;
+    bottom: 0; 
+    position: fixed;
+}
+
+.category-select {
+    width: 100%; /* Ensures the select box takes the full width */
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #BFACE2;
+    color: #000;
+    font-size: 16px;
+}
+
+.category-select:focus {
+    outline: none;
+    border-color: #d29898; /* Color change on focus */
+}
+
+/* Full-screen Loading Overlay */
+.loading {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 9999;
+    text-align: center;
+    padding-top: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* Centers content horizontally and vertically */
+  }
+  
+  /* Style for the loading GIF */
+  .loading-gif {
+    width: 100px;
+    height: 100px; /* Adjust the size */
+    position: center;
+  }
+  
+  /* Styling for the loading message */
+  .loading-content p {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    position: center;
+  }
+
+  .speaker-icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+
+/* Adjust margin for mobile view */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+    }
+
+    .form-horizontal .control-label {
+        text-align: left;
+    }
+
+    .form-horizontal .col-sm-offset-2 {
+        margin-left: 0;
+    }
+}

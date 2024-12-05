@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="icon" href="/static/logo.png/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImageScribe</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='signstyle.css') }}">
+</head>
+<body>
+
+  <h1>ImageScribe</h1>
+    <div class="container">
+    <h2>Forgot Password</h2>
+    <form action="/reset-password" method="POST">
+        <label for="old-password">Old Password:</label>
+        <input type="password" name="old-password" required>
+
+        <label for="new-password">New Password:</label>
+        <input type="password" name="new-password" required>
+
+        <button type="submit" class="btn">Reset Password</button>
+    </form>
+
+    <p>
+        <a href="/login">Back to Log in</a>
+    </p>
+
+
+    </div>
+
+</body>
+</html>

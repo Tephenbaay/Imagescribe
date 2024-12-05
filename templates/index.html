@@ -1,39 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Image Caption Generator</title>
+  <title>ImageScribe</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="icon" href="/static/logo.png/">
+  <link rel="stylesheet" href="{{ url_for('static', filename='chat.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='loading.css') }}"> <!-- Link to new CSS file -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-
-<div class="container">
-  <h1 class="jumbotron bg-primary"><center>Image Caption and Description Generator</center></h1>
-  <br><br>
-  <form class="form-horizontal" action="/upload" method="post" enctype="multipart/form-data">
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="imageUpload">Upload Your Image:</label>
-      <div class="col-sm-10">          
-        <input type="file" class="form-control" name="my_image" id="imageUpload" required>
+  <!-- Sticky Header -->
+  <header class="header">
+    <h1 class="logo">ImageScribe</h1>
+    <div class="header-icons">
+      <div class="tab">
+        <button class="btn0" onclick="window.location.href='/chat'">
+          <img src="static/images/tab.png" alt="tab button" width="40px" height="40px">
+        </button>
+      </div>
+      <div class="back">
+        <button class="btn0" onclick="window.location.href='/home'">
+          <img src="static/images/out.png" alt="out button" width="40px" height="40px">
+        </button>
       </div>
     </div>
-    <div class="form-group">        
-      <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-success">Submit</button>
+  </header>
+
+  <!-- Main content wrapper -->
+  <div class="main-wrapper">
+    <aside class="sidebar">
+      <div class="user-account">
+        <img src="static/images/user.png" alt="user account">
+        <button class="btn1" onclick="window.location.href='/user'"><b>User Account</b></button>
       </div>
+
+      <h2>History</h2>
+      {% if history %}
+        {% for entry in history %}
+          <div class="history-entry" onclick="showHistory('{{ loop.index0 }}')">
+            <p>{{ entry.caption[:20] }}...</p>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>No history available.</p>
+      {% endif %}
+    </aside>
+
+    <!-- Category Select Dropdown -->
+
+    <!-- Display Results -->
+    <div class="main-content content">
+      {% if results %}
+        {% for result in results %}
+          <div class="entry">
+            <img src="{{ url_for('static', filename=result.img_path) }}" height="400px" width="400px">
+          </div>
+
+          <div>
+            <h2> Caption: <i id="caption{{ loop.index }}"> </i><img class="speaker-icon" src="static/images/speaker.png" onclick="new Audio('{{ url_for('static', filename=result.caption_audio) }}').play()" alt="speaker"></h2>
+          </div>
+          <div>
+            <h3> Description: <i id="description{{ loop.index }}"> </i><img class="speaker-icon" src="static/images/speaker.png" onclick="new Audio('{{ url_for('static', filename=result.description_audio) }}').play()" alt="speaker"></h3>
+          </div>
+
+          <hr>
+
+          <script>
+            function typeText(text, elementId, delay = 20, callback = null) {
+              let index = 0;
+              function type() {
+                if (index < text.length) {
+                  document.getElementById(elementId).innerHTML += text.charAt(index);
+                  index++;
+                  setTimeout(type, delay);
+                } else if (callback) {
+                  callback();
+                }
+              }
+              type();
+            }
+
+            document.addEventListener("DOMContentLoaded", function() {
+              typeText("{{ result.caption }}", "caption{{ loop.index }}", 20, function() {
+                typeText("{{ result.description }}", "description{{ loop.index }}", 20);
+              });
+            });
+          </script>
+        {% endfor %}
+      {% endif %}
     </div>
-  </form>
 
-  {% if filename and caption %}  
-    <center><img src="{{ url_for('static', filename=filename) }}" height="400px" width="400px"></center>
-    <h2> Predicted Caption: <i> {{ caption }} </i></h2>
-    <h2> Predicted Description: <i> {{ description }} </i></h2>  <!-- Add description here -->
-  {% endif %}
+    <!-- Sticky container at the bottom -->
+    <div class="container">
+      <form class="form-horizontal" action="/submit" method="post" enctype="multipart/form-data" onsubmit="showLoading()">
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="pwd"></label>
+          <div class="col-sm-10">          
+            <input type="file" class="form-control" name="my_image" id="pwd" multiple required> 
+          </div>
+        </div>
 
-</div>
+        <div class="form-group">        
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-success" id="submit-btn">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Full-screen Loading Overlay -->
+  <div id="loading-overlay" class="loading">
+    <div class="loading-content">
+      <p>Your image is being processed by our AI...</p>
+      <img src="static/images/loading.gif" alt="Loading..." class="loading-gif">
+    </div>
+  </div>
+
+  <script>
+    function showLoading() {
+      document.getElementById('loading-overlay').style.display = 'flex'; 
+      document.getElementById('submit-btn').disabled = true; 
+    }
+
+    function showHistory(index) {
+      const historyData = {{ history|default([])|tojson }};
+      const entry = historyData[index];
+      const mainContent = document.querySelector('.main-content');
+      mainContent.innerHTML = `
+        <div class="entry">
+          <img src="/static/${entry.img_path}" height="400px" width="400px">
+        </div>
+        <div>
+          <h2> Caption: ${entry.caption}</h2>
+          <img class="speaker-icon" src="static/images/speaker.png" onclick="new Audio('/static/${entry.caption_audio}').play()" alt="speaker">
+        </div>
+        <div>
+          <h3> Description: ${entry.description}</h3>
+          <img class="speaker-icon" src="static/images/speaker.png" onclick="new Audio('/static/${entry.description_audio}').play()" alt="speaker">
+        </div>
+      `;
+    }
+  </script>
 
 </body>
 </html>

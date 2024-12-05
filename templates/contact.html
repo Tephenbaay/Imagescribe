@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="icon" href="/static/logo.png/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImageScribe</title>
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='constyle.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+</head>
+<body>
+    <div class="button">
+        <button class="btn1" onclick="window.location.href='/home'"><b>Home</b></button>
+        <button class="btn2" onclick="window.location.href='/contact'"><b>Contacts</b></button>
+        <button class="btn3" onclick="window.location.href='/aboutus'"><b>About Us</b></button>
+    </div>
+
+    <div id="horizontal-line"></div>
+
+    <h1><b>ImageScribe</b></h1>
+    <p>Please Contact/Follow us on our platforms!</p>
+        <div class="wrapper">
+            <a href="https://www.facebook.com/">
+         <div class="button">
+            <div class="icon">
+               <i class="fab fa-facebook-f"></i>
+            </div>
+            <span>Facebook</span>
+         </div>
+            </a>
+            <a href="https://x.com/?lang=en">
+            <div class="button">
+            <div class="icon">
+               <i class="fab fa-twitter"></i>
+            </div>
+            <span>Twitter</span>
+         </div>
+            </a>
+            <a href="https://www.instagram.com/">
+         <div class="button">
+            <div class="icon">
+               <i class="fab fa-instagram"></i>
+            </div>
+            <span>Instagram</span>
+         </div>
+            </a>
+            <a href="https://mail.google.com/">
+         <div class="button">
+            <div class="icon">
+               <i class="fa fa-envelope"></i>
+            </div>
+            <span>Email</span>
+         </div>
+            </a>
+            <a href="https://www.youtube.com/">
+         <div class="button">
+            <div class="icon">
+               <i class="fab fa-youtube"></i>
+            </div>
+            <span>YouTube</span>
+         </div>
+            </a>
+        </div>
+</body>
+</html>

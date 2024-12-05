@@ -6,16 +6,19 @@ import torch
 from transformers import BlipProcessor, BlipForConditionalGeneration, GPT2LMHeadModel, GPT2Tokenizer
 import random
 from train_model import generate_category
+from flask_babel import Babel, gettext as _
 import spacy
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import pymysql
 from flask_migrate import Migrate
-from flask_login import LoginManager, current_user, login_required
+from flask_login import LoginManager, current_user, login_required, login_user, UserMixin
+from gtts import gTTS
 from waitress import serve
 
 # Create Flask app instance
 app = Flask(__name__)
+babel = Babel(app)
 
 pymysql.install_as_MySQLdb()
 
@@ -41,7 +44,7 @@ login_manager.login_view = 'login'  # Replace 'login' with your actual login rou
 
 app.secret_key = '9b1e5db5e7f14d2aa8e4ac2f6e3d2e33'
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(120), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
@@ -49,6 +52,13 @@ class User(db.Model):
 
     def __repr__(self):
         return f'<User {self.username}>'
+
+    # This is necessary for Flask-Login
+    def is_active(self):
+        return True  # Return True if the user is active, else False
+
+    def get_id(self):
+        return str(self.id)  # Ensure that the ID is returned as a string
 
 # Set Babel configuration after app creation
 app.config['BABEL_DEFAULT_LOCALE'] = 'en'
@@ -130,7 +140,7 @@ def generate_predicted_description(image_path):
     caption = processor.batch_decode(generated_ids, skip_special_tokens=True)[0]
 
     # Generate the first paragraph based on the caption
-    first_paragraph = f"Based on the image caption: '{caption}', we can deduce that the image depicts a scene containing several key elements. The main subject of the image is {caption.lower()}, and the scene is set in a {random.choice(['urban', 'natural', 'indoor', 'outdoor'])} environment. You can see details such as {random.choice(['people', 'buildings', 'nature', 'objects'])} in the background, creating an overall sense of {random.choice(['calm', 'busy', 'serene', 'dynamic'])}."
+    first_paragraph = f"Based on the image caption: {caption}, we can deduce that the image depicts a scene containing several key elements. The main subject of the image is {caption.lower()}, and the scene is set in a {random.choice(['urban', 'natural', 'indoor', 'outdoor'])} environment. You can see details such as {random.choice(['people', 'buildings', 'nature', 'objects'])} in the background, creating an overall sense of {random.choice(['calm', 'busy', 'serene', 'dynamic'])}."
 
     # Ensure the first paragraph ends with a period
     first_paragraph = ensure_complete_sentence(first_paragraph)
@@ -175,8 +185,20 @@ def load_generated_data(filepath):
 generated_captions = load_generated_data('generated_captions.txt')
 generated_descriptions = load_generated_data('generated_descriptions.txt')
 
+class History(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    filename = db.Column(db.String(120), nullable=False)
+    caption = db.Column(db.String(500), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    category = db.Column(db.String(100), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship('User', backref=db.backref('history', lazy=True))
+
+    def __repr__(self):
+        return f'<History {self.filename}>'
+
 @app.route('/')
-def home():
+def main():
     return render_template('home.html')
 
 @login_manager.user_loader
@@ -193,9 +215,17 @@ def login():
         user = User.query.filter_by(email=email).first()
 
         if user and check_password_hash(user.password, password):
+            # Log the user in using Flask-Login
+            login_user(user)
+
+            # Flash a success message
             flash("Logged in successfully!", "success")
-            return redirect(url_for('index'))
+            
+            # Redirect to the page the user was trying to access (or to index by default)
+            next_page = request.args.get('next')  # If there was a "next" argument (from a protected page)
+            return redirect(next_page or url_for('index'))
         else:
+            # If the login failed, flash an error message
             flash("Incorrect email or password.", "error")
             return redirect(url_for('login'))
 
@@ -233,7 +263,35 @@ def signup():
 
 @app.route('/index')
 def index():
+    greeting = _("Welcome to the multilingual app!")
     return render_template('index.html', captions=generated_captions, descriptions=generated_descriptions)
+
+@app.route("/home", methods=['GET', 'POST'])
+def home():
+    return render_template("home.html")
+
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
+
+@app.route("/aboutus")
+def aboutus():
+    return render_template("aboutus.html")
+
+@app.route("/forget")
+def forget():
+    return render_template("forget.html")
+
+@app.route("/user")
+def user():
+    return render_template("user.html")
+
+@app.route('/history')
+@login_required  # Ensure the user is logged in to view the history
+def history():
+    user_history = History.query.filter_by(user_id=current_user.id).all()
+    return render_template('history.html', history=user_history)
+
 
 uploads_directory = os.path.join('static', 'uploads')
 os.makedirs(uploads_directory, exist_ok=True)
@@ -258,14 +316,20 @@ def download_text():
 
     return response
 
-@app.route('/upload', methods=['POST', 'GET'])
+
+@app.route('/submit', methods=['POST', 'GET'])
+@login_required  # Ensure that the user is logged in
 def upload():
     if request.method == 'POST':
         if 'my_image' not in request.files:
             return "No file uploaded.", 400
 
         file = request.files['my_image']
-        
+
+        # Check the file size (example: limit to 3 MB)
+        if file.content_length > 3 * 1024 * 1024:  # 3 MB in bytes
+            return render_template("index.html", error="You can only upload a maximum of 3MB per image.", results=[], history=[])
+
         if file:
             filename = secure_filename(file.filename)
             file_path = os.path.join(uploads_directory, filename)
@@ -280,8 +344,32 @@ def upload():
             print(f"Generated Description: {first_description} {second_description}")
             print(f"Determined Category: {category}")
             
-            generated_descriptions[filename] = first_description + "\n\n" + second_description
+            # Save the image data into the history table
+            new_history = History(
+                filename=filename,
+                caption=caption,
+                description=first_description + "\n\n" + second_description,
+                category=category,
+                user_id=current_user.id  # Ensure the user is logged in and has an id
+            )
+            db.session.add(new_history)
+            db.session.commit()
             
+            # Optionally, update the user's history directly
+            generated_descriptions[filename] = first_description + "\n\n" + second_description
+
+            caption_audio_path = os.path.join('static', 'audio', f"{file.filename}_caption.mp3")
+            tts_caption = gTTS(text=caption, lang='en')
+            tts_caption.save(caption_audio_path)
+
+            description_audio_path = os.path.join('static', 'audio', f"{file.filename}_description.mp3")
+            tts_description = gTTS(text=first_description, lang='en')
+            tts_description.save(description_audio_path)
+
+            description_audio_path = os.path.join('static', 'audio', f"{file.filename}_description.mp3")
+            tts_description = gTTS(text=second_description, lang='en')
+            tts_description.save(description_audio_path)
+
             return render_template(
                 'result.html', 
                 filename=filename, 
@@ -291,12 +379,10 @@ def upload():
                 category=category,
                 current_user=current_user
             )
-    
+
     return render_template('index.html')
 
 # Remove the db.create_all() here and instead, handle migrations with Flask-Migrate
 
 if __name__ == '__main__':
-    print("Listening on port:", os.getenv("PORT"))
-    port = int(os.getenv("PORT", 5000))  # Default to 5000 if PORT isn't set
-    serve(app, host='0.0.0.0', port=port)
+    app.run(debug=True)

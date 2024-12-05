@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="icon" href="/static/logo.png/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImageScribe</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='userstyle.css') }}">
+</head>
+<body>
+<div class="back">
+    <button class="btn1" onclick="window.location.href='/chat'"><img src="static/images/back.png" alt="back button" width="40px" height="40px"></button>
+</div>
+  <h1>ImageScribe</h1>
+    <div class="container">
+        <h2>User Account</h2>
+
+        <form action="/login" method="post">
+            <div class="form-group">
+                <label for="username">Email:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="nusername">New Email:</label>
+                <input type="text" id="nusername" name="nusername" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="npassword">New Password:</label>
+                <input type="npassword" id="npassword" name="npassword" required>
+            </div>
+
+            <button type="submit" class="btn">Save Changes</button>
+        </form>
+
+
+    </div>
+
+</body>
+</html>

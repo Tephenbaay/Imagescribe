@@ -5,7 +5,7 @@
 !.elasticbeanstalk/*.global.yml
 
 venv
-translations
+translations/
 babel.cfg
 messages.pot
 sample outputs
@@ -17,3 +17,5 @@ image_captioning_model.h5
 remove_missing_features.py
 tokenizer_flickr8k.pkl
 tokenizer.p
+migrations/
+__pycache__/
