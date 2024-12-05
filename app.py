@@ -299,4 +299,4 @@ def upload():
 if __name__ == '__main__':
     print("Listening on port:", os.getenv("PORT"))
     port = int(os.getenv("PORT", 5000))  # Default to 5000 if PORT isn't set
-    serve(app, host='0.0.0.0', port=int(os.getenv('PORT', 5000)))
+    serve(app, host='0.0.0.0', port=port)
