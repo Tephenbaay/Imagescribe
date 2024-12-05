@@ -5,5 +5,9 @@
 !.elasticbeanstalk/*.global.yml
 
 venv
-Flicker8k_Dataset
-Flickr_8k_text
+translations
+babel.cfg
+messages.pot
+sample outputs
+model_9.h5
+remove_missing_features.py
