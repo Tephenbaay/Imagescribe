@@ -1,0 +1,9 @@
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+
+venv
+Flicker8k_Dataset
+Flickr_8k_text

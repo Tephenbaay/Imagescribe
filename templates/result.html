@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Image Caption Result</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    body {
+      display: flex;
+    }
+    .sidebar {
+      width: 20%;
+      background-color: #f8f9fa;
+      height: 100vh;
+      overflow-y: auto;
+      position: fixed;
+      padding-top: 20px;
+    }
+    .main-content {
+      margin-left: 20%;
+      padding: 20px;
+      width: 80%;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+    }
+    .header .profile {
+      display: flex;
+      align-items: center;
+    }
+    .header .profile img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h4 class="text-center">Upload History</h4>
+    <ul class="list-group">
+      {% for history in upload_history %}
+      <li class="list-group-item">
+        <a href="{{ url_for('view_upload', filename=history.filename) }}">{{ history.filename }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Header -->
+    <div class="header">
+      <h1>Image Caption Result</h1>
+      <div class="profile">
+        <span>{{ current_user.username }}</span>
+      </div>
+    </div>
+
+    <!-- Display the uploaded image -->
+    <div class="text-center">
+      <img src="{{ url_for('static', filename='uploads/' + filename) }}" class="img-responsive img-thumbnail" style="max-height: 400px; max-width: 400px;">
+    </div>
+
+    <!-- Download Image -->
+    <div class="text-center">
+      <a href="{{ url_for('static', filename='uploads/' + filename) }}" download="{{ filename }}" class="btn btn-success">Download Image</a>
+    </div>
+    <br>
+
+    <!-- Display the generated caption -->
+    <h2>Predicted Caption: <i>{{ caption }}</i></h2>
+
+    <!-- Display the enhanced description with two paragraphs -->
+    <h2>Predicted Description:</h2>
+    <h3>{{ first_description }}</h3>
+    <h3>{{ second_description }}</h3>
+
+    <!-- Display the predicted category -->
+    <h3>Image Category: <i>{{ category }}</i></h3>
+
+    <!-- Download Caption and Descriptions -->
+    <div class="text-center">
+      <form method="post" action="{{ url_for('download_text') }}">
+        <input type="hidden" name="filename" value="{{ filename }}">
+        <input type="hidden" name="caption" value="{{ caption }}">
+        <input type="hidden" name="first_description" value="{{ first_description }}">
+        <input type="hidden" name="second_description" value="{{ second_description }}">
+        <button type="submit" class="btn btn-success">Download Captions and Descriptions</button>
+      </form>
+    </div>
+    <br>
+
+    <!-- Button to go back to the main page -->
+    <div class="text-center">
+      <a href="/" class="btn btn-primary">Go Back</a>
+    </div>
+  </div>
+</body>
+</html>
