@@ -29,11 +29,9 @@ DB_USER = os.getenv('AWS_RDS_USER')
 DB_PASSWORD = os.getenv('AWS_RDS_PASSWORD')
 DB_NAME = os.getenv('AWS_RDS_DB_NAME')
 
-# Database URI for AWS RDS MySQL
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:Imagescribe11!@imagescribe.cx6aooymq47o.ap-southeast-2.rds.amazonaws.com/imagescribe'
-
-# Optional: Disable the modification tracking feature
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:imagescribe@localhost/imagescribe'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
