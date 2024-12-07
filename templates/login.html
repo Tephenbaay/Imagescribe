@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImageScribe</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='logstyle.css') }}">
+    <link rel="icon" href="/static/logo.png/">
+</head>
+<body>
+    <h1>ImageScribe</h1>
+    <div class="container">
+        <h2>Login</h2>
+
+        <form action="/login" method="post">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="text" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <img src="{{ url_for('static', filename='images/eyecon1.png') }}" onclick="togglePassword()" class="eyecon" id="eyecon" alt="Show/Hide Password">
+            </div>
+
+            <button type="submit" class="btn">Login</button>
+            <p>
+                <a href="/forget">Forgot Password?</a>
+            </p>
+            <p>Don't have an account? <a href="/signup"><b>Click here</b></a> to sign up.</p>
+
+            {% if error %}
+                <script>
+                    alert("{{ error }}"); // Display the error message in an alert
+                </script>
+            {% endif %}
+        </form>
+    </div>
+
+    <script>
+        function togglePassword() {
+            var passwordField = document.getElementById('password');
+            var eyeIcon = document.getElementById('eyecon');
+
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text'; // Show password
+                eyeIcon.src = "{{ url_for('static', filename='images/eyecon.png') }}"; // Change to hide icon
+            } else {
+                passwordField.type = 'password'; // Hide password
+                eyeIcon.src = "{{ url_for('static', filename='images/eyecon1.png') }}"; // Change back to show icon
+            }
+        }
+    </script>
+</body>
+</html>

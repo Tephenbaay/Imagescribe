@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 50px;
+    background-color: #ECF2FF;
+    background-image: url('/static/images/ava2.png');
+    background-repeat: no-repeat;
+    background-position-x: 1150px;
+    background-position-y: 220px;
+    background-size: 520px
+}
+
+#horizontal-line{
+    width : 50%;
+    height: 7px;
+    border: 0 none;
+    margin-right: auto;
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 90px;
+    background-color: #645CBB;
+}
+
+h1 {
+    color: #645CBB;
+    font-size: 100px;
+    margin-right: 910px;
+    margin-left: 20px;
+}
+
+p {
+    color: #645CBB;
+    font-size: 20px;
+    margin-right: 950px;
+    margin-left: 20px;
+    margin-bottom: 100px;
+}
+
+.buttons {
+    margin-top: 80px;
+    margin-right: 900px;
+    margin-left: 20px;
+}
+.btn {
+    background-color: #E1B7D0;
+    color: white;
+    padding: 25px 70px;
+    margin: 30px;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 50px;
+}
+.btn:hover {
+    background-color: #DC98C0;
+}
+
+.button {
+    margin-top: 100px;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 20px;
+    display: flex;
+
+}
+
+.btn1{
+    color: #645CBB;
+    margin-right: 220px;
+    margin-left: 0px;
+    padding: 10px 20px;
+    background-color: #ECF2FF;
+    border: #F9E8C9;
+    font-size: 30px;
+}
+
+.btn2{
+    color: #645CBB;
+    margin-right: 240px;
+    margin-left: 0px;
+    padding: 10px 20px;
+    background-color: #ECF2FF;
+    border: #F9E8C9;
+    font-size: 30px;
+}
+
+.btn3{
+    color: #645CBB;
+    margin-right: 0px;
+    margin-left: 0px;
+    padding: 10px 20px;
+    background-color: #ECF2FF;
+    border: #F9E8C9;
+    font-size: 30px;
+}
+
+.btn1:hover{
+    color: #E5D1FA;
+}
+
+.btn2:hover{
+    color: #E5D1FA;
+}
+.btn3:hover{
+    color: #E5D1FA;
+}
+
+.wrapper .button{
+  display: inline-block;
+  height: 60px;
+  width: 60px;
+  float: left;
+  margin: 0 60px;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0px 10px 10px rgba(0,0,0,0.1);
+  transition: all 0.3s ease-out;
+}
+.wrapper .button:hover{
+  width: 200px;
+}
+.wrapper .button .icon{
+  display: inline-block;
+  height: 60px;
+  width: 60px;
+  text-align: center;
+  border-radius: 50px;
+  box-sizing: border-box;
+  line-height: 60px;
+  transition: all 0.3s ease-out;
+}
+.wrapper .button:nth-child(1):hover .icon{
+  background: #4267B2;
+}
+.wrapper .button:nth-child(2):hover .icon{
+  background: #1DA1F2;
+}
+.wrapper .button:nth-child(3):hover .icon{
+  background: #E1306C;
+}
+.wrapper .button:nth-child(4):hover .icon{
+  background: #333;
+}
+.wrapper .button:nth-child(5):hover .icon{
+  background: #ff0000;
+}
+.wrapper .button .icon i{
+  font-size: 25px;
+  line-height: 60px;
+  transition: all 0.3s ease-out;
+}
+.wrapper .button:hover .icon i{
+  color: #fff;
+}
+.wrapper .button span{
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 60px;
+  margin-left: 10px;
+  transition: all 0.3s ease-out;
+}
+.wrapper .button:nth-child(1) span{
+  color: #4267B2;
+}
+.wrapper .button:nth-child(2) span{
+  color: #1DA1F2;
+}
+.wrapper .button:nth-child(3) span{
+  color: #E1306C;
+}
+.wrapper .button:nth-child(4) span{
+  color: #333;
+}
+.wrapper .button:nth-child(5) span{
+  color: #ff0000;
+}

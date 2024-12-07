@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User History</title>
+</head>
+<body>
+    <h1>Your Image History</h1>
+    {% if history %}
+        <ul>
+            {% for item in history %}
+                <li>
+                    <h3>{{ item.filename }}</h3>
+                    <p><strong>Caption:</strong> {{ item.caption }}</p>
+                    <p><strong>Description:</strong> {{ item.description }}</p>
+                    <p><strong>Category:</strong> {{ item.category }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No history available. Upload an image to get started.</p>
+    {% endif %}
+</body>
+</html>

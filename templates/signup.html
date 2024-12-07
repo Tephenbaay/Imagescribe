@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/static/logo.png/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImageScribe</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='signstyle.css') }}">
+</head>
+<body>
+    <h1>ImageScribe</h1>
+    <div class="container">
+        <h2>Sign Up</h2>
+
+        <form action="/signup" method="post" id="signupForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="username" id="username" name="username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group" id="passwordGroup">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <img src="{{ url_for('static', filename='images/eyecon1.png') }}" onclick="togglePassword()" class="eyecon" id="eyecon" alt="Show/Hide Password">
+                <div class="password-requirements" id="requirements">
+                    <ul>
+                        <li>Be at least 8 characters long</li>
+                        <li>Include at least one special character (e.g., @, #, $, %)</li>
+                        <li>Contain at least two numbers</li>
+                    </ul>
+                </div>
+                <p class="error-message" id="error-message">Password does not meet requirements.</p>
+            </div>
+
+            <button type="submit" class="btn">Sign Up</button>
+        </form>
+    </div>
+
+    <script>
+        function togglePassword() {
+            var passwordField = document.getElementById('password');
+            var eyeIcon = document.getElementById('eyecon');
+
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text'; // Show password
+                eyeIcon.src = '{{ url_for("static", filename="images/eyecon.png") }}'; // Change to hide icon
+            } else {
+                passwordField.type = 'password'; // Hide password
+                eyeIcon.src = '{{ url_for("static", filename="images/eyecon1.png") }}'; // Change back to show icon
+            }
+        }
+
+        document.getElementById('signupForm').addEventListener('submit', function (event) {
+            const password = document.getElementById('password').value;
+            const passwordGroup = document.getElementById('passwordGroup');
+            const errorMessage = document.getElementById('error-message');
+
+            // Validate password requirements
+            const isValid = validatePassword(password);
+            if (!isValid) {
+                event.preventDefault(); // Prevent form submission
+                passwordGroup.classList.add('error'); // Add error class
+                errorMessage.classList.add('show'); // Show error message
+            } else {
+                passwordGroup.classList.remove('error'); // Remove error class if valid
+                errorMessage.classList.remove('show'); // Hide error message
+            }
+        });
+
+        // Prevent hiding the error message when the user focuses on the password field
+        document.getElementById('password').addEventListener('focus', function () {
+            const passwordGroup = document.getElementById('passwordGroup');
+            const errorMessage = document.getElementById('error-message');
+
+            if (passwordGroup.classList.contains('error')) {
+                errorMessage.classList.add('show'); // Keep showing error message if it's already triggered
+            }
+        });
+
+        function validatePassword(password) {
+            const minLength = 8;
+            const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/; // Regex for special characters
+            const numberRegex = /\d.*\d/; // Regex for at least two numbers
+            return (
+                password.length >= minLength &&
+                specialCharRegex.test(password) &&
+                numberRegex.test(password)
+            );
+        }
+    </script>
+</body>
+</html>

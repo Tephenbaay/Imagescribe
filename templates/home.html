@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="icon" href="/static/logo.png/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ImageScribe</title>
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+</head>
+<body>
+    <div class="button">
+        <button class="btn1" onclick="window.location.href='/home'"><b>Home</b></button>
+        <button class="btn2" onclick="window.location.href='/contact'"><b>Contacts</b></button>
+        <button class="btn3" onclick="window.location.href='/aboutus'"><b>About Us</b></button>
+    </div>
+
+    <div id="horizontal-line"></div>
+
+    <h1><b>ImageScribe</b></h1>
+    <h4>ImageScribe will help you to understand what’s on the image.</h4>
+    <p>To save your progress, <a href="/login"><b>click here</b></a> to sign in.</p>
+    <div class="buttons">
+       <!-- <button class="btn" onclick="window.location.href='/login'">Login</button>
+        <button class="btn" onclick="window.location.href='/signup'">Sign Up</button>-->
+        <button class="btn" onclick="window.location.href='/index'">Get Started</button>
+    </div>
+</body>
+</html>

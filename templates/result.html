@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>ImageScribe</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/static/logo.png/">
+  <link rel="stylesheet" href="{{ url_for('static', filename='result.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='loading.css') }}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <!-- Sticky Header -->
+  <header class="header">
+    <h1 class="logo">ImageScribe</h1>
+    <div class="header-icons">
+      <div class="tab">
+        <button class="btn0" onclick="window.location.href='/chat'">
+          <img src="{{ url_for('static', filename='images/tab.png') }}" alt="tab button" width="40px" height="40px">
+        </button>
+      </div>
+      <div class="back">
+        <button class="btn0" onclick="window.location.href='/home'">
+          <img src="{{ url_for('static', filename='images/out.png') }}" alt="out button" width="40px" height="40px">
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sidebar -->
+  <div class="main-wrapper">
+    <div class="sidebar">
+      <div class="user-account">
+        <img src="static/images/user.png" alt="user account">
+        <button class="btn1" onclick="window.location.href='/user'"><b>User Account</b></button>
+      </div>
+      <h4 class="text-center">History</h4>
+      <ul class="list-group">
+        {% for history in upload_history %}
+        <li class="list-group-item">
+          <a href="{{ url_for('view_upload', filename=history.filename) }}">{{ history.filename }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="text-center">
+        <img src="{{ url_for('static', filename='uploads/' + filename) }}" class="img-responsive img-thumbnail" style="max-height: 400px; max-width: 400px; float: right;">
+      </div>
+      <div class="text-center">
+        <a href="{{ url_for('static', filename='uploads/' + filename) }}" download="{{ filename }}" class="btn12">Download Image</a>
+      </div>
+     <br>
+      <h2>Caption: <i id="caption"></i>
+        <button onclick="playAudio('{{ caption }}')">
+          <img src="{{ url_for('static', filename='images/speaker.png') }}" alt="Play caption" width="24px">
+        </button>
+      </h2>
+
+      <h2>Description:</h2>
+      <h3 id="first-description"></h3>
+      <h3 id="second-description"></h3>
+      <button onclick="playDescriptionAudio()">
+        <img src="{{ url_for('static', filename='images/speaker.png') }}" alt="Play description" width="24px">
+      </button>
+
+      <h3>Image Category: <i>{{ category }}</i></h3>
+      <div class="text-center">
+        <button onclick="downloadTextFile()">Download Captions and Descriptions</button>
+      </div>
+      <div class="text-center">
+        <button onclick="downloadImage()">Download Image</button>
+      </div>
+      <hr>
+      <br>
+    </div>
+  </div>
+
+  <div class="container">
+    <form class="form-horizontal" action="/submit" method="post" enctype="multipart/form-data" onsubmit="showLoading()">
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="pwd"></label>
+        <div class="col-sm-10">
+          <input type="file" class="form-control" name="my_image" id="pwd" multiple required>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-success" id="submit-btn">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Full-screen Loading Overlay -->
+  <div id="loading-overlay" class="loading">
+    <div class="loading-content">
+      <p>Your image is being processed by our AI...</p>
+      <img src="{{ url_for('static', filename='images/loading.gif') }}" alt="Loading..." class="loading-gif">
+    </div>
+  </div>
+
+  <script>
+    function showLoading() {
+      document.getElementById('loading-overlay').style.display = 'flex';
+      document.getElementById('submit-btn').disabled = true;
+    }
+
+    function downloadImage() {
+      const imageUrl = "{{ url_for('static', filename='uploads/' + filename) }}"; // Ensure this points to the correct image URL
+      const link = document.createElement('a');
+      link.href = imageUrl;
+      link.download = "{{ filename }}"; // Set the download file name as the image filename
+      link.click();
+    }
+
+    function playAudio(text) {
+      const speech = new SpeechSynthesisUtterance(text);
+      speechSynthesis.speak(speech);
+    }
+
+    function playDescriptionAudio() {
+      const descriptionText = "{{ first_description }} {{ second_description }}";
+      const speech = new SpeechSynthesisUtterance(descriptionText);
+      speechSynthesis.speak(speech);
+    }
+
+    function downloadTextFile() {
+      const captionText = "{{ caption }}";
+      const firstDescriptionText = "{{ first_description }}";
+      const secondDescriptionText = "{{ second_description }}";
+      const textContent = `Caption: ${captionText}\n\nDescription:\n${firstDescriptionText}\n${secondDescriptionText}`;
+
+      const blob = new Blob([textContent], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = "caption_and_description.txt"; // Default filename
+      link.click();
+    }
+
+    function typeEffect(elementId, text, delay = 20) {
+      const element = document.getElementById(elementId);
+      let index = 0;
+
+      function type() {
+        if (index < text.length) {
+          element.textContent += text.charAt(index);
+          index++;
+          setTimeout(type, delay);
+        }
+      }
+
+      type();
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const captionText = "{{ caption }}";
+      const firstDescriptionText = "{{ first_description }}";
+      const secondDescriptionText = "{{ second_description }}";
+
+      typeEffect("caption", captionText, 20); // Typing effect for caption
+      typeEffect("first-description", firstDescriptionText, 20); // First description
+      typeEffect("second-description", secondDescriptionText, 20); // Second description
+    });
+  </script>
+</body>
+</html>

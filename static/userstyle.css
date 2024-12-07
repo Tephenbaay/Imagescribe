@@ -1,0 +1,99 @@
+/* Center the container on the page */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #ECF2FF;
+    background-image: url('/static/images/ava7.png');
+    background-size: 600px;
+    background-position-x: 900px;
+    background-position-y: 120px;
+    background-repeat: no-repeat;
+}
+
+.back{
+    display: flex;
+}
+
+.btn1 {
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    background: url('/static/back.png');
+    border-style: hidden;
+}
+
+.img{
+    width: 40px;
+    height: 40px;
+}
+
+h1{
+    color: #645CBB;
+    font-size: 55px;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    margin-left: auto;
+    margin-right: 900px;
+    text-align: center;
+}
+
+h2{
+    font-size: 35px;
+    color: #1e1b3a;
+}
+
+/* Container for the login form */
+.container {
+    background-color: #E3DFFD;
+    padding: 30px;
+    border-radius: 35px;
+    width: 300px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 2);
+    margin-right:660px;
+    margin-left: 320px;
+}
+
+/* Form elements */
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 90%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    font-size: 14px;
+}
+
+button.btn {
+    width: 50%;
+    background-color: #BFACE2;
+    color: black;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button.btn:hover {
+    background-color: #E5D1FA;
+}
+
+/* Optional link style */
+a {
+    text-decoration: none;
+    color: #4CAF50;
+}
+a:hover {
+    text-decoration: underline;
+}
