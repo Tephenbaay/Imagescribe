@@ -15,6 +15,7 @@ from flask_migrate import Migrate
 from flask_login import LoginManager, current_user, login_required, login_user, UserMixin
 from gtts import gTTS
 from waitress import serve
+import gunicorn.app.base
 
 # Create Flask app instance
 app = Flask(__name__)

@@ -19,3 +19,5 @@ tokenizer_flickr8k.pkl
 tokenizer.p
 migrations/
 __pycache__/
+translations/
+.vscode/
