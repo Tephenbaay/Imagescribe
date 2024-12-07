@@ -35,5 +35,3 @@ def main():
     save_features(features_path, features)
     print(f"Updated features saved. Total features now: {len(features)}.")
 
-if __name__ == '__main__':
-    main()
