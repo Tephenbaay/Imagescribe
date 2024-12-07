@@ -244,6 +244,4 @@ def train_model():
                 else:
                     print(f"No description found for {image_id}")
 
-# Main execution
-if __name__ == '__main__':
-    train_model()
+
