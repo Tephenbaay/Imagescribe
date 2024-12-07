@@ -8,49 +8,27 @@ import random
 from train_model import generate_category
 from flask_babel import Babel, gettext as _
 import spacy
-from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-import pymysql
-from flask_migrate import Migrate
-from flask_login import LoginManager, current_user, login_required, login_user, UserMixin
 from gtts import gTTS
 from waitress import serve
-import gunicorn.app.base
 
 # Create Flask app instance
 app = Flask(__name__)
 babel = Babel(app)
 
-pymysql.install_as_MySQLdb()
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:imagescribe@localhost/imagescribe'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:imagescribe@localhost/imagescribe'
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+# db = SQLAlchemy(app)
+# migrate = Migrate(app, db)
 
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_view = 'login'  # Replace 'login' with your actual login route
+# login_manager = LoginManager()
+# login_manager.init_app(app)
+# login_manager.login_view = 'login'  # Replace 'login' with your actual login route
 
 app.secret_key = '9b1e5db5e7f14d2aa8e4ac2f6e3d2e33'
-
-class User(UserMixin, db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(120), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(200), nullable=False)  # Ensure this exists
-
-    def __repr__(self):
-        return f'<User {self.username}>'
-
-    # This is necessary for Flask-Login
-    def is_active(self):
-        return True  # Return True if the user is active, else False
-
-    def get_id(self):
-        return str(self.id)  # Ensure that the ID is returned as a string
 
 # Set Babel configuration after app creation
 app.config['BABEL_DEFAULT_LOCALE'] = 'en'
@@ -177,83 +155,19 @@ def load_generated_data(filepath):
 generated_captions = load_generated_data('generated_captions.txt')
 generated_descriptions = load_generated_data('generated_descriptions.txt')
 
-class History(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    filename = db.Column(db.String(120), nullable=False)
-    caption = db.Column(db.String(500), nullable=False)
-    description = db.Column(db.Text, nullable=False)
-    category = db.Column(db.String(100), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    user = db.relationship('User', backref=db.backref('history', lazy=True))
-
-    def __repr__(self):
-        return f'<History {self.filename}>'
-
-@app.route('/')
+@app.route('/home')
 def main():
     return render_template('home.html')
 
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))  # Adjust based on your User model
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
-
-        # Query the user by email
-        user = User.query.filter_by(email=email).first()
-
-        if user and check_password_hash(user.password, password):
-            # Log the user in using Flask-Login
-            login_user(user)
-
-            # Flash a success message
-            flash("Logged in successfully!", "success")
-            
-            # Redirect to the page the user was trying to access (or to index by default)
-            next_page = request.args.get('next')  # If there was a "next" argument (from a protected page)
-            return redirect(next_page or url_for('index'))
-        else:
-            # If the login failed, flash an error message
-            flash("Incorrect email or password.", "error")
-            return redirect(url_for('login'))
-
     return render_template('login.html')
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    if request.method == 'POST':
-        username = request.form['username']
-        email = request.form['email']
-        password = request.form['password']
-        
-        # Check if the user already exists in the database
-        user_exists = User.query.filter_by(email=email).first()
-        if user_exists:
-            return "User already exists with that email", 400
-        
-        # Hash the password before storing it
-        hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
-        
-        # Create a new user
-        new_user = User(username=username, email=email, password=hashed_password)
-        
-        # Add the new user to the session and commit
-        db.session.add(new_user)
-        db.session.commit()
-
-        # Flash a success message
-        flash("Account created successfully! You can now log in.")
-        
-        # Redirect to login page
-        return redirect(url_for('login'))
-    
     return render_template('signup.html')
 
-@app.route('/index')
+@app.route('/')
 def index():
     greeting = _("Welcome to the multilingual app!")
     return render_template('index.html', captions=generated_captions, descriptions=generated_descriptions)
@@ -279,11 +193,8 @@ def user():
     return render_template("user.html")
 
 @app.route('/history')
-@login_required  # Ensure the user is logged in to view the history
 def history():
-    user_history = History.query.filter_by(user_id=current_user.id).all()
-    return render_template('history.html', history=user_history)
-
+    return render_template('history.html')
 
 uploads_directory = os.path.join('static', 'uploads')
 os.makedirs(uploads_directory, exist_ok=True)
@@ -310,7 +221,6 @@ def download_text():
 
 
 @app.route('/submit', methods=['POST', 'GET'])
-@login_required  # Ensure that the user is logged in
 def upload():
     if request.method == 'POST':
         if 'my_image' not in request.files:
@@ -320,7 +230,7 @@ def upload():
 
         # Check the file size (example: limit to 3 MB)
         if file.content_length > 3 * 1024 * 1024:  # 3 MB in bytes
-            return render_template("index.html", error="You can only upload a maximum of 3MB per image.", results=[], history=[])
+            return render_template("index.html", error="You can only upload a maximum of 3MB per image.", results=[])
 
         if file:
             filename = secure_filename(file.filename)
@@ -341,10 +251,9 @@ def upload():
                 filename=filename,
                 caption=caption,
                 description=first_description + "\n\n" + second_description,
-                category=category,
-                user_id=current_user.id  # Ensure the user is logged in and has an id
+                category=category
             )
-            db.session.add(new_history)
+            db.session.add()
             db.session.commit()
             
             # Optionally, update the user's history directly
@@ -369,7 +278,6 @@ def upload():
                 first_description=first_description, 
                 second_description=second_description, 
                 category=category,
-                current_user=current_user
             )
 
     return render_template('index.html')
@@ -377,5 +285,4 @@ def upload():
 # Remove the db.create_all() here and instead, handle migrations with Flask-Migrate
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))  # Use PORT from env, default to 5000
-    app.run(host="0.0.0.0", port=port)
+    app.run()
