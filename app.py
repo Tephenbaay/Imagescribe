@@ -155,10 +155,6 @@ def load_generated_data(filepath):
 generated_captions = load_generated_data('generated_captions.txt')
 generated_descriptions = load_generated_data('generated_descriptions.txt')
 
-@app.route('/home')
-def main():
-    return render_template('home.html')
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     return render_template('login.html')
@@ -218,7 +214,6 @@ def download_text():
     response.mimetype = 'text/plain'
 
     return response
-
 
 @app.route('/submit', methods=['POST', 'GET'])
 def upload():
