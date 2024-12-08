@@ -6,7 +6,6 @@ import torch
 from transformers import BlipProcessor, BlipForConditionalGeneration, GPT2LMHeadModel, GPT2Tokenizer
 import random
 from train_model import generate_category
-from flask_babel import Babel, gettext as _
 import spacy
 from werkzeug.security import generate_password_hash, check_password_hash
 from gtts import gTTS
@@ -14,7 +13,6 @@ from waitress import serve
 
 # Create Flask app instance
 app = Flask(__name__)
-babel = Babel(app)
 
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:imagescribe@localhost/imagescribe'
@@ -31,8 +29,6 @@ babel = Babel(app)
 app.secret_key = '9b1e5db5e7f14d2aa8e4ac2f6e3d2e33'
 
 # Set Babel configuration after app creation
-app.config['BABEL_DEFAULT_LOCALE'] = 'en'
-app.config['BABEL_SUPPORTED_LOCALES'] = ['en', 'es', 'fr', 'de', 'fil']
 
 # Directory where your images will be stored
 image_directory = os.path.join(app.root_path, 'static', 'uploads')
@@ -165,7 +161,6 @@ def signup():
 
 @app.route('/')
 def index():
-    greeting = _("Welcome to the multilingual app!")
     return render_template('index.html', captions=generated_captions, descriptions=generated_descriptions)
 
 @app.route("/home", methods=['GET', 'POST'])
