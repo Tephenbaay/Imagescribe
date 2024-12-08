@@ -130,7 +130,32 @@ def enhance_description(description):
     enhanced_text = " ".join([sent.text for sent in doc.sents])  # Fix grammar issues by tokenizing and reconstructing
     return enhanced_text
 
-# Function to generate a predicted description for the uploaded image based on the caption
+# Function to generate the third paragraph based on the second paragraph, ensuring it's related
+def generate_third_paragraph(first_paragraph, second_paragraph):
+    # Combine the first and second paragraphs to form a context
+    combined_input = first_paragraph + " " + second_paragraph
+
+    # Encode the combined input for GPT-2
+    input_ids = gpt2_tokenizer.encode(combined_input, return_tensors='pt')
+
+    # Generate the third paragraph using GPT-2
+    output = gpt2_model.generate(
+        input_ids, max_length=200, num_return_sequences=1, no_repeat_ngram_size=2,
+        temperature=0.7, top_p=0.95, top_k=50
+    )
+
+    # Decode the generated text and extract the third paragraph
+    extended_description = gpt2_tokenizer.decode(output[0], skip_special_tokens=True)
+
+    # Extract the third paragraph from the extended description (ensuring it makes sense)
+    third_paragraph = extended_description[len(combined_input):].strip()
+    third_paragraph = ensure_complete_sentence(third_paragraph)
+
+    # Enhance the third paragraph using Spacy for grammar correction
+    third_paragraph = enhance_description(third_paragraph)
+
+    return third_paragraph
+
 def generate_predicted_description(image_path):
     image = load_image(image_path)
     inputs = processor(images=image, return_tensors="pt")
@@ -166,8 +191,17 @@ def generate_predicted_description(image_path):
     first_paragraph = enhance_description(first_paragraph)
     second_paragraph = enhance_description(second_paragraph)
 
-    # Return the description in a two-paragraph format
-    return first_paragraph, second_paragraph
+    # Generate the third paragraph based on the second one, ensuring it's consistent
+    third_paragraph = f"The {random.choice(['lighting', 'colors', 'shadows', 'contrast'])} in the image further emphasizes the mood, adding depth and enhancing the visual experience. The {random.choice(['texture', 'patterns', 'perspective'])} also play an important role in how the scene is perceived. These elements work together to create a cohesive atmosphere, whether it be one of {random.choice(['mystery', 'tranquility', 'energy', 'chaos'])} or {random.choice(['nostalgia', 'curiosity', 'intensity', 'serenity'])}, drawing the viewer deeper into the visual narrative."
+
+    # Ensure the third paragraph ends with a period
+    third_paragraph = ensure_complete_sentence(third_paragraph)
+
+    # Enhance the third paragraph using Spacy
+    third_paragraph = enhance_description(third_paragraph)
+
+    # Return the description in a three-paragraph format
+    return first_paragraph, second_paragraph, third_paragraph
 
 # Load generated captions/descriptions from the file
 def load_generated_data(filepath):
@@ -313,11 +347,12 @@ def download_text():
     caption = request.form.get('caption')
     first_description = request.form.get('first_description')
     second_description = request.form.get('second_description')
+    third_description = request.form.get('third_description')
 
     # Create the text content
     text_content = f"Filename: {filename}\n\n"
     text_content += f"Predicted Caption: {caption}\n\n"
-    text_content += f"Predicted Description:\n{first_description}\n{second_description}\n"
+    text_content += f"Predicted Description:\n{first_description}\n{second_description}\n{third_description}\n"
 
     # Create the response for file download
     response = make_response(text_content)
@@ -325,7 +360,6 @@ def download_text():
     response.mimetype = 'text/plain'
 
     return response
-
 
 @app.route('/submit', methods=['POST', 'GET'])
 @login_required  # Ensure that the user is logged in
@@ -347,18 +381,18 @@ def upload():
 
             # Generate the caption, description, and category for the uploaded image
             caption = generate_caption(file_path)
-            first_description, second_description = generate_predicted_description(file_path)
+            first_description, second_description, third_description = generate_predicted_description(file_path)
             category = generate_category(file_path)
             
             print(f"Generated Caption: {caption}")
-            print(f"Generated Description: {first_description} {second_description}")
+            print(f"Generated Description: {first_description} {second_description} {third_description}")
             print(f"Determined Category: {category}")
             
             # Save the image data into the history table
             new_history = History(
                 filename=filename,
                 caption=caption,
-                description=first_description + "\n\n" + second_description,
+                description=first_description + "\n\n" + second_description + "\n\n" + third_description,
                 category=category,
                 user_id=current_user.id  # Ensure the user is logged in and has an id
             )
@@ -366,7 +400,7 @@ def upload():
             db.session.commit()
             
             # Optionally, update the user's history directly
-            generated_descriptions[filename] = first_description + "\n\n" + second_description
+            generated_descriptions[filename] = first_description + "\n\n" + second_description + "\n\n" + third_description
 
             caption_audio_path = os.path.join('static', 'audio', f"{file.filename}_caption.mp3")
             tts_caption = gTTS(text=caption, lang='en')
@@ -380,12 +414,17 @@ def upload():
             tts_description = gTTS(text=second_description, lang='en')
             tts_description.save(description_audio_path)
 
+            description_audio_path = os.path.join('static', 'audio', f"{file.filename}_description.mp3")
+            tts_description = gTTS(text=third_description, lang='en')
+            tts_description.save(description_audio_path)
+
             return render_template(
                 'result.html', 
                 filename=filename, 
                 caption=caption, 
                 first_description=first_description, 
                 second_description=second_description, 
+                third_description=third_description,
                 category=category,
                 current_user=current_user
             )

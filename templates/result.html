@@ -63,6 +63,7 @@
       <h2>Description:</h2>
       <h3 id="first-description"></h3>
       <h3 id="second-description"></h3>
+      <h3 id="third-description"></h3>
       <button onclick="playDescriptionAudio()">
         <img src="{{ url_for('static', filename='images/speaker.png') }}" alt="Play description" width="24px">
       </button>
@@ -123,7 +124,7 @@
     }
 
     function playDescriptionAudio() {
-      const descriptionText = "{{ first_description }} {{ second_description }}";
+      const descriptionText = "{{ first_description }} {{ second_description }} {{ third_description}}";
       const speech = new SpeechSynthesisUtterance(descriptionText);
       speechSynthesis.speak(speech);
     }
@@ -132,6 +133,7 @@
       const captionText = "{{ caption }}";
       const firstDescriptionText = "{{ first_description }}";
       const secondDescriptionText = "{{ second_description }}";
+      const thirdDescriptionText = "{{ third_description}}";
       const textContent = `Caption: ${captionText}\n\nDescription:\n${firstDescriptionText}\n${secondDescriptionText}`;
 
       const blob = new Blob([textContent], { type: 'text/plain' });
@@ -160,10 +162,12 @@
       const captionText = "{{ caption }}";
       const firstDescriptionText = "{{ first_description }}";
       const secondDescriptionText = "{{ second_description }}";
+      const thirdDescriptionText = "{{ third_description}}";
 
       typeEffect("caption", captionText, 20); // Typing effect for caption
       typeEffect("first-description", firstDescriptionText, 20); // First description
       typeEffect("second-description", secondDescriptionText, 20); // Second description
+      typeEffect("third-description", thirdDescriptionText, 20);
     });
   </script>
 </body>
