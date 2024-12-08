@@ -9,7 +9,6 @@ from train_model import generate_category
 import spacy
 from werkzeug.security import generate_password_hash, check_password_hash
 from gtts import gTTS
-from waitress import serve
 
 # Create Flask app instance
 app = Flask(__name__)
