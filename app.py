@@ -14,8 +14,6 @@ import pymysql
 from flask_migrate import Migrate
 from flask_login import LoginManager, current_user, login_required, login_user, UserMixin
 from gtts import gTTS
-from waitress import serve
-import gunicorn.app.base
 
 # Create Flask app instance
 app = Flask(__name__)
@@ -30,7 +28,7 @@ DB_USER = os.getenv('AWS_RDS_USER')
 DB_PASSWORD = os.getenv('AWS_RDS_PASSWORD')
 DB_NAME = os.getenv('AWS_RDS_DB_NAME')
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:imagescribe@localhost/imagescribe'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:Imagescribe11!@imagescribe.cx6aooymq47o.ap-southeast-2.rds.amazonaws.com:3306/imagescribe'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
