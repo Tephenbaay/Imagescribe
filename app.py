@@ -237,14 +237,8 @@ def upload():
             print(f"Determined Category: {category}")
             
             # Save the image data into the history table
-            new_history = History(
-                filename=filename,
-                caption=caption,
-                description=first_description + "\n\n" + second_description,
-                category=category
-            )
-            db.session.add()
-            db.session.commit()
+            # db.session.add()
+            # db.session.commit()
             
             # Optionally, update the user's history directly
             generated_descriptions[filename] = first_description + "\n\n" + second_description
