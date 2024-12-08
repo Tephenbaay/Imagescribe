@@ -35,6 +35,19 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
+try:
+    connection = pymysql.connect(
+        host="imagescribe.cx6aooymq47o.ap-southeast-2.rds.amazonaws.com",
+        user="admin",
+        password="Imagescribe11!",
+        database="imagescribe",
+        port=3306
+    )
+    print("Database connection successful!")
+    connection.close()
+except Exception as e:
+    print(f"Error connecting to database: {e}")
+
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'  # Replace 'login' with your actual login route
@@ -382,5 +395,4 @@ def upload():
 # Remove the db.create_all() here and instead, handle migrations with Flask-Migrate
 
 if __name__ == '__main__':
-    port = os.getenv('PORT', 10000)  # Default to 10000 if PORT is not set
-    app.run(host='0.0.0.0', port=port)
+    app.run()
