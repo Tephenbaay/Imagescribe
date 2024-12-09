@@ -14,6 +14,8 @@ import pymysql
 from flask_migrate import Migrate
 from flask_login import LoginManager, current_user, login_required, login_user, UserMixin
 from gtts import gTTS
+import re
+from datetime import datetime
 
 # Create Flask app instance
 app = Flask(__name__)
@@ -130,77 +132,66 @@ def enhance_description(description):
     enhanced_text = " ".join([sent.text for sent in doc.sents])  # Fix grammar issues by tokenizing and reconstructing
     return enhanced_text
 
-# Function to generate the third paragraph based on the second paragraph, ensuring it's related
-def generate_third_paragraph(first_paragraph, second_paragraph):
-    # Combine the first and second paragraphs to form a context
-    combined_input = first_paragraph + " " + second_paragraph
+def ensure_complete_sentence(text):
+    """
+    Ensures the text ends with a complete sentence by removing trailing incomplete phrases.
+    """
+    if text.strip()[-1] not in ".!?":
+        # Find the last complete sentence using regex
+        complete_sentence = re.findall(r".*?[.!?]", text)
+        if complete_sentence:
+            return complete_sentence[-1].strip()
+        else:
+            # If no sentence end is found, return a fallback
+            return text.strip() + "."
+    return text.strip()
 
-    # Encode the combined input for GPT-2
-    input_ids = gpt2_tokenizer.encode(combined_input, return_tensors='pt')
-
-    # Generate the third paragraph using GPT-2
-    output = gpt2_model.generate(
-        input_ids, max_length=200, num_return_sequences=1, no_repeat_ngram_size=2,
-        temperature=0.7, top_p=0.95, top_k=50
-    )
-
-    # Decode the generated text and extract the third paragraph
-    extended_description = gpt2_tokenizer.decode(output[0], skip_special_tokens=True)
-
-    # Extract the third paragraph from the extended description (ensuring it makes sense)
-    third_paragraph = extended_description[len(combined_input):].strip()
-    third_paragraph = ensure_complete_sentence(third_paragraph)
-
-    # Enhance the third paragraph using Spacy for grammar correction
-    third_paragraph = enhance_description(third_paragraph)
-
-    return third_paragraph
-
+# Function to generate a predicted description for the uploaded image based on the caption
 def generate_predicted_description(image_path):
     image = load_image(image_path)
     inputs = processor(images=image, return_tensors="pt")
     pixel_values = inputs["pixel_values"]
 
     with torch.no_grad():
-        # Generate the base caption
         generated_ids = model.generate(
             pixel_values,
             temperature=1.0,
             top_k=50,
             top_p=0.95,
-            max_length=50
+            max_length=100
         )
 
-    # Decode the generated caption
     caption = processor.batch_decode(generated_ids, skip_special_tokens=True)[0]
 
-    # Generate the first paragraph based on the caption
-    first_paragraph = f"Based on the image caption: {caption}, we can deduce that the image depicts a scene containing several key elements. The main subject of the image is {caption.lower()}, and the scene is set in a {random.choice(['urban', 'natural', 'indoor', 'outdoor'])} environment. You can see details such as {random.choice(['people', 'buildings', 'nature', 'objects'])} in the background, creating an overall sense of {random.choice(['calm', 'busy', 'serene', 'dynamic'])}."
-
-    # Ensure the first paragraph ends with a period
+    first_paragraph = (
+        f"Based on the image caption: {caption}, we can deduce that the image depicts a scene containing several key elements. "
+        f"The main subject of the image is {caption.lower()}, and the scene is set in a {random.choice(['urban', 'natural', 'indoor', 'outdoor'])} "
+        f"environment. You can see details such as {random.choice(['people', 'buildings', 'nature', 'objects'])} in the background, creating an "
+        f"overall sense of {random.choice(['calm', 'busy', 'serene', 'dynamic'])}."
+    )
     first_paragraph = ensure_complete_sentence(first_paragraph)
 
-    # Enhance the description with GPT-2 to make it more detailed and explanatory
     extended_description = generate_extended_description(first_paragraph)
 
-    # Extract the second paragraph and ensure it ends with a period
-    second_paragraph = extended_description.split('\n\n')[1] if '\n\n' in extended_description else extended_description
+    if '\n\n' in extended_description:
+        paragraphs = extended_description.split('\n\n')
+        second_paragraph = paragraphs[1] if len(paragraphs) > 1 else paragraphs[0]
+    else:
+        second_paragraph = extended_description
+
     second_paragraph = ensure_complete_sentence(second_paragraph)
 
-    # Enhance both paragraphs using Spacy
     first_paragraph = enhance_description(first_paragraph)
     second_paragraph = enhance_description(second_paragraph)
 
-    # Generate the third paragraph based on the second one, ensuring it's consistent
-    third_paragraph = f"The {random.choice(['lighting', 'colors', 'shadows', 'contrast'])} in the image further emphasizes the mood, adding depth and enhancing the visual experience. The {random.choice(['texture', 'patterns', 'perspective'])} also play an important role in how the scene is perceived. These elements work together to create a cohesive atmosphere, whether it be one of {random.choice(['mystery', 'tranquility', 'energy', 'chaos'])} or {random.choice(['nostalgia', 'curiosity', 'intensity', 'serenity'])}, drawing the viewer deeper into the visual narrative."
-
-    # Ensure the third paragraph ends with a period
+    third_paragraph = (
+        f"Together, these descriptions highlight that the image combines elements of {caption.lower()} and its environment to evoke a "
+        f"{random.choice(['vivid', 'thought-provoking', 'nostalgic', 'inspiring'])} experience. This underscores the interplay between "
+        f"the main subject and its context, offering a comprehensive view that is both engaging and informative."
+    )
     third_paragraph = ensure_complete_sentence(third_paragraph)
-
-    # Enhance the third paragraph using Spacy
     third_paragraph = enhance_description(third_paragraph)
 
-    # Return the description in a three-paragraph format
     return first_paragraph, second_paragraph, third_paragraph
 
 # Load generated captions/descriptions from the file
@@ -237,6 +228,7 @@ class History(db.Model):
     category = db.Column(db.String(100), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     user = db.relationship('User', backref=db.backref('history', lazy=True))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)  # Add this line to store the creation timestamp
 
     def __repr__(self):
         return f'<History {self.filename}>'
@@ -306,9 +298,18 @@ def signup():
     return render_template('signup.html')
 
 @app.route('/index')
+@login_required
 def index():
+    # Fetch user history (images uploaded by the logged-in user)
+    upload_history = History.query.filter_by(user_id=current_user.id).all()
+    
+    # Fetch additional results to display in the main content (if needed)
     greeting = _("Welcome to the multilingual app!")
-    return render_template('index.html', captions=generated_captions, descriptions=generated_descriptions)
+    return render_template('index.html', 
+                    captions=generated_captions, 
+                    descriptions=generated_descriptions, 
+                    upload_history=upload_history,  
+                    current_user=current_user)
 
 @app.route("/home", methods=['GET', 'POST'])
 def home():
@@ -350,15 +351,18 @@ def download_text():
     third_description = request.form.get('third_description')
 
     # Create the text content
-    text_content = f"Filename: {filename}\n\n"
-    text_content += f"Predicted Caption: {caption}\n\n"
-    text_content += f"Predicted Description:\n{first_description}\n{second_description}\n{third_description}\n"
+    text_content = (
+        f"Filename: {filename}\n\n"
+        f"Caption: {caption}\n\n"
+        f"First Description: {first_description}\n\n"
+        f"Second Description: {second_description}\n\n"
+        f"Third Description: {third_description}\n\n"
+    )
 
-    # Create the response for file download
+    # Create a response to download the text file
     response = make_response(text_content)
-    response.headers['Content-Disposition'] = 'attachment; filename=captions_and_descriptions.txt'
-    response.mimetype = 'text/plain'
-
+    response.headers["Content-Disposition"] = f"attachment; filename={filename}.txt"
+    response.headers["Content-Type"] = "text/plain"
     return response
 
 @app.route('/submit', methods=['POST', 'GET'])
@@ -398,10 +402,8 @@ def upload():
             )
             db.session.add(new_history)
             db.session.commit()
-            
-            # Optionally, update the user's history directly
-            generated_descriptions[filename] = first_description + "\n\n" + second_description + "\n\n" + third_description
 
+            # Generate audio for caption and description
             caption_audio_path = os.path.join('static', 'audio', f"{file.filename}_caption.mp3")
             tts_caption = gTTS(text=caption, lang='en')
             tts_caption.save(caption_audio_path)
@@ -418,20 +420,42 @@ def upload():
             tts_description = gTTS(text=third_description, lang='en')
             tts_description.save(description_audio_path)
 
+            # Retrieve the upload history for the current user
+            upload_history = History.query.filter_by(user_id=current_user.id).order_by(History.created_at.desc()).all()
+
             return render_template(
                 'result.html', 
                 filename=filename, 
                 caption=caption, 
                 first_description=first_description, 
-                second_description=second_description, 
+                second_description=second_description,
                 third_description=third_description,
                 category=category,
-                current_user=current_user
+                current_user=current_user,
+                upload_history=upload_history  # Pass the history to the result.html template
             )
 
     return render_template('index.html')
 
-# Remove the db.create_all() here and instead, handle migrations with Flask-Migrate
+@app.route('/history_image/<filename>', methods=['GET'])
+@login_required
+def history_image(filename):
+    # Fetch the image details from the history table based on filename
+    history = History.query.filter_by(filename=filename, user_id=current_user.id).first()
+    
+    if history:
+        return render_template(
+            'result.html',
+            filename=history.filename,
+            caption=history.caption,
+            first_description=history.first_description, 
+            second_description=history.second_description,
+            third_description=history.third_description,
+            category=history.category,
+            current_user=current_user
+        )
+    
+    return redirect(url_for('index'))  # If not found, redirect to the home page
 
 if __name__ == '__main__':
     app.run()

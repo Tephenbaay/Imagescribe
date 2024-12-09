@@ -24,8 +24,7 @@
       </button>
     </div>
     <h1 class="logo"></h1>
-    <div class="header-icons">
-    </div>
+    <div class="header-icons"></div>
   </header>
 
   <!-- Sidebar -->
@@ -34,63 +33,85 @@
       <h1 class="logo">ImageScribe</h1>
       <h4 class="text-center">History</h4>
       <ul class="list-group">
-        {% for history in upload_history %}
-        <li class="list-group-item">
-          <a href="{{ url_for('view_upload', filename=history.filename) }}">{{ history.filename }}</a>
-        </li>
-        {% endfor %}
+          {% for history in upload_history %}
+              <li class="list-group-item">
+                  <!-- Button to trigger the upload route with the filename -->
+                  <form action="{{ url_for('upload') }}" method="POST">
+                      <input type="hidden" name="filename" value="{{ history.filename }}">
+                      <button type="submit" class="btn btn-link w-100 text-left">
+                          {{ history.filename }}
+                      </button>
+                  </form>
+              </li>
+          {% else %}
+              <li class="list-group-item">No uploads found.</li>
+          {% endfor %}
       </ul>
-    </div>
-
+  </div>
+  
     <!-- Main Content -->
     <div class="main-content">
       <div class="text-center">
-        <img src="{{ url_for('static', filename='uploads/' + filename) }}" class="img-responsive img-thumbnail" style="max-height: 400px; max-width: 400px; float: right;">
+        <img src="{{ url_for('static', filename='uploads/' + filename) }}" class="img-responsive img-thumbnail" style="max-height: 400px; max-width: 400px;">
       </div>
+
+      <!-- Image Download Link -->
       <div class="text-center">
         <a href="{{ url_for('static', filename='uploads/' + filename) }}" download="{{ filename }}" class="btn12"></a>
       </div>
-     <br>
-      <h2>Caption: <i id="caption"></i>
-        <button onclick="playAudio('{{ caption }}')">
-          <img src="{{ url_for('static', filename='images/speaker.png') }}" alt="Play caption" width="24px">
+
+      <br>
+
+      <!-- Caption and Description Card -->
+      <div class="card" style="width: 100%; padding: 15px; margin: 10px auto; background-color: #f8f9fa; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <h2>Caption: <i id="caption"></i>
+          <button onclick="playAudio('{{ caption }}')">
+            <img src="{{ url_for('static', filename='images/speaker.png') }}" alt="Play caption" width="24px">
+          </button>
+        </h2>
+
+        <h2>Description:</h2>
+        <h3 id="first-description" style="text-align: justify;"></h3>
+        <h3 id="second-description" style="text-align: justify;"></h3>
+        <h3 id="third-description" style="text-align: justify;"></h3>
+        <button onclick="playDescriptionAudio()">
+          <img src="{{ url_for('static', filename='images/speaker.png') }}" alt="Play description" width="24px">
         </button>
-      </h2>
 
-      <h2>Description:</h2>
-      <h3 id="first-description"></h3>
-      <h3 id="second-description"></h3>
-      <button onclick="playDescriptionAudio()">
-        <img src="{{ url_for('static', filename='images/speaker.png') }}" alt="Play description" width="24px">
-      </button>
+        <h3>Image Category: <i>{{ category }}</i></h3>
+      </div>
 
-      <h3>Image Category: <i>{{ category }}</i></h3>
+      <!-- Download Buttons -->
       <div class="btn2">
         <button onclick="downloadTextFile()">Download Captions and Descriptions</button>
       </div>
       <div class="btn2">
         <button onclick="downloadImage()">Download Image</button>
       </div>
+
       <hr>
       <br>
+
+      <!-- Image Upload Form -->
+      <div class="container" style="margin-bottom: 30px;">
+        <form class="form-horizontal" action="/submit" method="post" enctype="multipart/form-data" onsubmit="showLoading()">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="pwd"></label>
+            <div class="col-sm-10">
+              <input type="file" class="form-control" name="my_image" id="pwd" multiple required>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-success" id="submit-btn">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
     </div>
   </div>
 
-  <div class="container">
-    <form class="form-horizontal" action="/submit" method="post" enctype="multipart/form-data" onsubmit="showLoading()">
-      <div class="form-group">
-        <label class="control-label col-sm-2" for="pwd"></label>
-        <div class="col-sm-10">
-          <input type="file" class="form-control" name="my_image" id="pwd" multiple required>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-          <button type="submit" class="btn btn-success" id="submit-btn">Submit</button>
-        </div>
-      </div>
-    </form>
-  </div>
   <div class="back">
     <button class="btnn" onclick="window.location.href='/home'">
       <img src="{{ url_for('static', filename='images/out.png') }}" alt="out button" width="40px" height="40px">
@@ -112,10 +133,10 @@
     }
 
     function downloadImage() {
-      const imageUrl = "{{ url_for('static', filename='uploads/' + filename) }}"; // Ensure this points to the correct image URL
+      const imageUrl = "{{ url_for('static', filename='uploads/' + filename) }}";
       const link = document.createElement('a');
       link.href = imageUrl;
-      link.download = "{{ filename }}"; // Set the download file name as the image filename
+      link.download = "{{ filename }}";
       link.click();
     }
 
@@ -125,7 +146,7 @@
     }
 
     function playDescriptionAudio() {
-      const descriptionText = "{{ first_description }} {{ second_description }}";
+      const descriptionText = "{{ first_description }} {{ second_description }} {{ third_description }}";
       const speech = new SpeechSynthesisUtterance(descriptionText);
       speechSynthesis.speak(speech);
     }
@@ -134,12 +155,13 @@
       const captionText = "{{ caption }}";
       const firstDescriptionText = "{{ first_description }}";
       const secondDescriptionText = "{{ second_description }}";
-      const textContent = `Caption: ${captionText}\n\nDescription:\n${firstDescriptionText}\n${secondDescriptionText}`;
+      const thirdDescriptionText = "{{ third_description }}";
+      const textContent = `Caption: ${captionText}\n\nDescription:\n${firstDescriptionText}\n${secondDescriptionText}\n${thirdDescriptionText}`;
 
       const blob = new Blob([textContent], { type: 'text/plain' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
-      link.download = "caption_and_description.txt"; // Default filename
+      link.download = "caption_and_description.txt";
       link.click();
     }
 
@@ -162,10 +184,12 @@
       const captionText = "{{ caption }}";
       const firstDescriptionText = "{{ first_description }}";
       const secondDescriptionText = "{{ second_description }}";
+      const thirdDescriptionText = "{{ third_description }}";
 
-      typeEffect("caption", captionText, 20); // Typing effect for caption
-      typeEffect("first-description", firstDescriptionText, 20); // First description
-      typeEffect("second-description", secondDescriptionText, 20); // Second description
+      typeEffect("caption", captionText, 20); 
+      typeEffect("first-description", firstDescriptionText, 20); 
+      typeEffect("second-description", secondDescriptionText, 20); 
+      typeEffect("third-description", thirdDescriptionText, 20);
     });
   </script>
 </body>
