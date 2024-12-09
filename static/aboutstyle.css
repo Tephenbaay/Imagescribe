@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     padding: 50px;
-    background-color: #FFF8E8;
+    background-color: #E5E4E2;
     background-image: url('/static/images/ava3.png');
     background-repeat: no-repeat;
     background-position-x: 1150px;
@@ -18,21 +18,23 @@ body {
     margin-left: 20px;
     margin-top: 20px;
     margin-bottom: 90px;
-    background-color: #674636;
+    background-color: #36454F;
 }
 
 h1 {
-    color: #674636;
+    color: #36454F;
     font-size: 100px;
     margin-right: 910px;
     margin-left: 20px;
+    font-family: Arial black, Helvetica, sans-serif;
 }
 
 p {
-    color: #674636;
+    color: #36454F;
     font-size: 20px;
     margin-right: 890px;
     margin-left: 20px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .buttons {
@@ -64,42 +66,42 @@ p {
 }
 
 .btn1{
-    color: #674636;
+    color: #36454F;
     margin-right: 220px;
     margin-left: 0px;
     padding: 10px 20px;
-    background-color: #FFF8E8;
+    background-color: #E5E4E2;
     border: #F9E8C9;
     font-size: 30px;
 }
 
 .btn2{
-    color: #674636;
+    color: #36454F;
     margin-right: 240px;
     margin-left: 0px;
     padding: 10px 20px;
-    background-color: #FFF8E8;
+    background-color: #E5E4E2;
     border: #F9E8C9;
     font-size: 30px;
 }
 
 .btn3{
-    color: #674636;
+    color: #36454F;
     margin-right: 0px;
     margin-left: 0px;
     padding: 10px 20px;
-    background-color: #FFF8E8;
+    background-color: #E5E4E2;
     border: #F9E8C9;
     font-size: 30px;
 }
 
 .btn1:hover{
-    color: #854000;
+    color: #A9A9A9;
 }
 
 .btn2:hover{
-    color: #854000;
+    color: #A9A9A9;
 }
 .btn3:hover{
-    color: #854000;
+    color: #A9A9A9;
 }

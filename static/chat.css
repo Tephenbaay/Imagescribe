@@ -1,14 +1,15 @@
 /* General styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #ECF2FF;
+    background-color: #E5E4E2;
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 /* Sticky Header */
 header {
-    background-color: #645CBB;
+    background-color: transparent;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -34,11 +35,11 @@ header {
 /* Scrollable main content */
 .main-content {
     flex: 1;
-    overflow-y: auto; /* Allows scrolling for the content */
+    overflow: hidden; /* Allows scrolling for the content */
     padding: 50px;
-    background-color: #ECF2FF;
-    scrollbar-width: none; /* For Firefox */
+    background-color: #E5E4E2;
     margin-left: 13%;
+    height: 100%;
 }
 
 /* For Webkit browsers (Chrome, Safari) */
@@ -48,10 +49,10 @@ header {
 
 /* Sticky container at the bottom */
 .container {
-    background-color: #645CBB;
+    background-color: #A9A9A9;
     padding: 10px;
     position: fixed;
-    bottom: 0; /* Sticks to the bottom of the screen */
+    bottom: 40%; /* Sticks to the bottom of the screen */
     width: 50%;
     margin-left: 30%;
     z-index: 1000;
@@ -73,13 +74,13 @@ header {
     padding: 10px;
     border-radius: 5px;
     border: #BFACE2;
-    background-color: #BFACE2;
+    background-color: #E5E4E2;
     width: 67%;
     margin-left: 10%;
 }
 
 .btn-success {
-    background-color: #BFACE2;
+    background-color: #E5E4E2;
     color: black;
     padding: 10px 20px;
     border: none;
@@ -88,7 +89,7 @@ header {
 }
 
 .btn-success:hover {
-    background-color: #E5D1FA;
+    background-color: #A9A9A9;
 }
 
 /* Image and result styling */
@@ -106,6 +107,15 @@ h2, h3 {
     text-align: left;
 }
 
+h1 {
+    text-align: left;
+    margin-left: -3%;
+    margin-top: -60px;
+    position: fixed;
+    font-size: 30px;
+    font-family: Arial black, Helvetica, sans-serif;
+}
+
 hr {
     border: 1px solid #645CBB;
 }
@@ -116,12 +126,13 @@ hr {
 }
 
 .sidebar {
-    background-color: #645CBB;
+    background-color: #A9A9A9;
     width: 250px;
-    height: 1000px;
+    height: 1050px;
     padding: 80px;
     box-sizing: border-box;
     position: fixed;
+    margin-top: -7%;
 }
 
 .user-account {
@@ -133,20 +144,75 @@ hr {
     color: #805f31;
     border-radius: 10px;
 }
- 
-.btn0{
-    background-color: #645CBB;
-    border-radius: 10px;
 
+.user{
+    margin-top: 10px;
+    margin-right: 76%;
+    margin-left: 13%;
+    border-radius: 10px;
+}
+
+.btn01{
+    border-radius: 10px;
+    background-color: #A9A9A9;
+}
+
+/* Basic styling for the content area */
+.content {
+    padding: 20px;
+    margin-top: 7vh;
+    position: sticky;
+    font-family: Arial black, Helvetica, sans-serif;
+    font-size: 3em;
+    color: #36454F;
+    white-space: nowrap;
+    text-align: center;
+}
+
+/* Typing effect */
+.typing-effect {
+    display: inline-block;
+    overflow: hidden;
+    border-right: 3px solid #A9A9A9; /* Cursor effect */
+}
+
+
+.btn0{
+    background-color: #A9A9A9;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
+    justify-content: flex-end;
+}
+
+.tab{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btnn{
+    background-color: #A9A9A9;
+    border-radius: 10px;
+    justify-content: flex-end;
+    bottom: 10px;
+    position: fixed;
+    margin-right: 10px;
+}
+
+.back{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    height: 91vh
 }
 
 .btn1{
-    background-color: #645CBB;
+    background-color: #A9A9A9;
     border-radius: 10px;
 }
 
 .user-account img {
-    margin-top: 0%;
+    margin-top: 50%;
     width: 40px;
     height: 40px;
     margin-left: -60%;
@@ -156,12 +222,21 @@ h2 {
     margin-top: 0;
     font-size: 30px;
     margin-left: 0%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h4{
+    font-size: 30px;
+    margin-top: -22%;
+    margin-left: -17%;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .history-entry {
     margin-top: 10px;
     font-size: 14px;
     margin-left: -60%;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .category-container {
@@ -228,6 +303,7 @@ h2 {
     cursor: pointer;
     margin-left: 10px;
   }
+  
 
 /* Adjust margin for mobile view */
 @media (max-width: 768px) {

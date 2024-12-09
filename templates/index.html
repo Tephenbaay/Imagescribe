@@ -11,32 +11,29 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-  <!-- Sticky Header -->
+  <!-- Sticky Header -->          
+  <div class="tab">
+    <button class="btn0" onclick="window.location.href='/index'">
+      <img src="static/images/tab.png" alt="tab button" width="40px" height="40px">
+    </button>
+  </div>
   <header class="header">
-    <h1 class="logo">ImageScribe</h1>
+    <div class="user">
+      <button class="btn01" onclick="window.location.href='/user'">
+        <img src="static/images/user.png" alt="user-button" width="40px" height="40px">
+      </button>
+    </div>
+    <h1 class="logo"></h1>
     <div class="header-icons">
-      <div class="tab">
-        <button class="btn0" onclick="window.location.href='/chat'">
-          <img src="static/images/tab.png" alt="tab button" width="40px" height="40px">
-        </button>
-      </div>
-      <div class="back">
-        <button class="btn0" onclick="window.location.href='/home'">
-          <img src="static/images/out.png" alt="out button" width="40px" height="40px">
-        </button>
-      </div>
     </div>
   </header>
 
   <!-- Main content wrapper -->
   <div class="main-wrapper">
     <aside class="sidebar">
-      <div class="user-account">
-        <img src="static/images/user.png" alt="user account">
-        <button class="btn1" onclick="window.location.href='/user'"><b>User Account</b></button>
-      </div>
+      <h1 class="logo">ImageScribe</h1>
 
-      <h2>History</h2>
+      <h4>History</h4>
       {% if history %}
         {% for entry in history %}
           <div class="history-entry" onclick="showHistory('{{ loop.index0 }}')">
@@ -52,6 +49,13 @@
 
     <!-- Display Results -->
     <div class="main-content content">
+
+      <div class="content">
+        <div class="typing-effect">
+            ImageScribe
+        </div>
+    </div>
+    
       {% if results %}
         {% for result in results %}
           <div class="entry">
@@ -109,6 +113,11 @@
         </div>
       </form>
     </div>
+    <div class="back">
+      <button class="btnn" onclick="window.location.href='/home'">
+        <img src="static/images/out.png" alt="out button" width="40px" height="40px">
+      </button>
+    </div>
   </div>
 
   <!-- Full-screen Loading Overlay -->
@@ -120,6 +129,45 @@
   </div>
 
   <script>
+
+const textElement = document.querySelector('.typing-effect');
+const finalText = 'IMAGESCRIBE'; // The final text to display
+let currentText = ''; // Keeps track of the finalized text
+let currentIndex = 0; // Tracks the current letter in the finalText
+const duration = 2000; // Total typing effect duration in milliseconds
+const interval = duration / (finalText.length * 5); // Adjusted interval for faster typing
+
+function randomLetter() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    return chars[Math.floor(Math.random() * chars.length)];
+}
+
+function typeText() {
+    if (currentIndex < finalText.length) {
+        let letter = finalText[currentIndex]; // The correct letter to type
+        let randomChars = ''; // Temporary string for random letters
+        
+        // Generate random letters for the current letter
+        let timer = setInterval(() => {
+            randomChars = randomLetter(); // Get a random letter
+            textElement.textContent = currentText + randomChars; // Update display
+            
+            if (randomChars === letter || Math.random() > 0.8) { // Stop randomness quickly
+                clearInterval(timer); // Stop generating random letters
+                currentText += letter; // Add the correct letter to the finalized text
+                currentIndex++; // Move to the next letter
+                typeText(); // Continue with the next letter
+            }
+        }, interval); // Adjust the speed of random letter generation
+    } else {
+        textElement.textContent = currentText; // Ensure the final text is correct
+    }
+}
+
+// Start the typing effect
+typeText();
+
+
     function showLoading() {
       document.getElementById('loading-overlay').style.display = 'flex'; 
       document.getElementById('submit-btn').disabled = true; 

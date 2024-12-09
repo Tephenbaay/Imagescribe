@@ -2,7 +2,7 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #ECF2FF;
+    background-color: #E5E4E2;
     background-image: url('/static/images/ava7.png');
     background-size: 600px;
     background-position-x: 900px;
@@ -11,13 +11,14 @@ body {
 }
 
 h1{
-    color: #645CBB;
+    color: #36454F;
     font-size: 55px;
-    margin-top: 100px;
+    margin-top: 90px;
     margin-bottom: 100px;
     margin-left: auto;
     margin-right: 850px;
     text-align: center;
+    font-family: Arial black, Helvetica, sans-serif;
 }
 
 h2{
@@ -27,7 +28,7 @@ h2{
 
 /* Container for the login form */
 .container {
-    background-color: #E3DFFD;
+    background-color: #A9A9A9;
     padding: 30px;
     border-radius: 35px;
     width: 340px;
@@ -63,7 +64,7 @@ input {
 
 button.btn {
     width: 50%;
-    background-color: #BFACE2;
+    background-color: #E5E4E2;
     color: black;
     padding: 10px 20px;
     margin-top: 10px;
@@ -74,7 +75,7 @@ button.btn {
 }
 
 button.btn:hover {
-    background-color: #E5D1FA;
+    background-color: #A9A9A9;
 }
 
 /* Optional link style */
@@ -95,9 +96,9 @@ a {
 }
 
 .eyecon{
-    position: absolute;
+    position: fixed;
     width: 35px;
     cursor: pointer;
     right: 1240px;
-    top: 500px;
+    top: 505px;
 }

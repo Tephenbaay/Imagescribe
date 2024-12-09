@@ -12,29 +12,26 @@
 </head>
 <body>
   <!-- Sticky Header -->
+  <div class="tab">
+    <button class="btn0" onclick="window.location.href='/index'">
+      <img src="static/images/tab.png" alt="tab button" width="40px" height="40px">
+    </button>
+  </div>
   <header class="header">
-    <h1 class="logo">ImageScribe</h1>
+    <div class="user">
+      <button class="btn01" onclick="window.location.href='/user'">
+        <img src="static/images/user.png" alt="user-button" width="40px" height="40px">
+      </button>
+    </div>
+    <h1 class="logo"></h1>
     <div class="header-icons">
-      <div class="tab">
-        <button class="btn0" onclick="window.location.href='/chat'">
-          <img src="{{ url_for('static', filename='images/tab.png') }}" alt="tab button" width="40px" height="40px">
-        </button>
-      </div>
-      <div class="back">
-        <button class="btn0" onclick="window.location.href='/home'">
-          <img src="{{ url_for('static', filename='images/out.png') }}" alt="out button" width="40px" height="40px">
-        </button>
-      </div>
     </div>
   </header>
 
   <!-- Sidebar -->
   <div class="main-wrapper">
     <div class="sidebar">
-      <div class="user-account">
-        <img src="static/images/user.png" alt="user account">
-        <button class="btn1" onclick="window.location.href='/user'"><b>User Account</b></button>
-      </div>
+      <h1 class="logo">ImageScribe</h1>
       <h4 class="text-center">History</h4>
       <ul class="list-group">
         {% for history in upload_history %}
@@ -51,7 +48,7 @@
         <img src="{{ url_for('static', filename='uploads/' + filename) }}" class="img-responsive img-thumbnail" style="max-height: 400px; max-width: 400px; float: right;">
       </div>
       <div class="text-center">
-        <a href="{{ url_for('static', filename='uploads/' + filename) }}" download="{{ filename }}" class="btn12">Download Image</a>
+        <a href="{{ url_for('static', filename='uploads/' + filename) }}" download="{{ filename }}" class="btn12"></a>
       </div>
      <br>
       <h2>Caption: <i id="caption"></i>
@@ -63,16 +60,15 @@
       <h2>Description:</h2>
       <h3 id="first-description"></h3>
       <h3 id="second-description"></h3>
-      <h3 id="third-description"></h3>
       <button onclick="playDescriptionAudio()">
         <img src="{{ url_for('static', filename='images/speaker.png') }}" alt="Play description" width="24px">
       </button>
 
       <h3>Image Category: <i>{{ category }}</i></h3>
-      <div class="text-center">
+      <div class="btn2">
         <button onclick="downloadTextFile()">Download Captions and Descriptions</button>
       </div>
-      <div class="text-center">
+      <div class="btn2">
         <button onclick="downloadImage()">Download Image</button>
       </div>
       <hr>
@@ -94,6 +90,11 @@
         </div>
       </div>
     </form>
+  </div>
+  <div class="back">
+    <button class="btnn" onclick="window.location.href='/home'">
+      <img src="{{ url_for('static', filename='images/out.png') }}" alt="out button" width="40px" height="40px">
+    </button>
   </div>
 
   <!-- Full-screen Loading Overlay -->
@@ -124,7 +125,7 @@
     }
 
     function playDescriptionAudio() {
-      const descriptionText = "{{ first_description }} {{ second_description }} {{ third_description}}";
+      const descriptionText = "{{ first_description }} {{ second_description }}";
       const speech = new SpeechSynthesisUtterance(descriptionText);
       speechSynthesis.speak(speech);
     }
@@ -133,7 +134,6 @@
       const captionText = "{{ caption }}";
       const firstDescriptionText = "{{ first_description }}";
       const secondDescriptionText = "{{ second_description }}";
-      const thirdDescriptionText = "{{ third_description}}";
       const textContent = `Caption: ${captionText}\n\nDescription:\n${firstDescriptionText}\n${secondDescriptionText}`;
 
       const blob = new Blob([textContent], { type: 'text/plain' });
@@ -162,12 +162,10 @@
       const captionText = "{{ caption }}";
       const firstDescriptionText = "{{ first_description }}";
       const secondDescriptionText = "{{ second_description }}";
-      const thirdDescriptionText = "{{ third_description}}";
 
       typeEffect("caption", captionText, 20); // Typing effect for caption
       typeEffect("first-description", firstDescriptionText, 20); // First description
       typeEffect("second-description", secondDescriptionText, 20); // Second description
-      typeEffect("third-description", thirdDescriptionText, 20);
     });
   </script>
 </body>

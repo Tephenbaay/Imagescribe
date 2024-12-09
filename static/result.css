@@ -1,14 +1,14 @@
 /* General styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #ECF2FF;
+    background-color: #E5E4E2;
     margin: 0;
     padding: 0;
 }
 
 /* Sticky Header */
 header {
-    background-color: #645CBB;
+    background-color: transparent;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -36,7 +36,7 @@ header {
     flex: 1;
     overflow-y: auto; /* Allows scrolling for the content */
     padding: 50px;
-    background-color: #ECF2FF;
+    background-color: #E5E4E2;
     scrollbar-width: none; /* For Firefox */
     margin-left: 13%;
 }
@@ -48,7 +48,7 @@ header {
 
 /* Sticky container at the bottom */
 .container {
-    background-color: #645CBB;
+    background-color: #A9A9A9;
     padding: 10px;
     position: fixed;
     bottom: 0; /* Sticks to the bottom of the screen */
@@ -72,14 +72,14 @@ header {
 .form-control {
     padding: 10px;
     border-radius: 5px;
-    border: #BFACE2;
-    background-color: #BFACE2;
+    border: #E5E4E2;
+    background-color: #E5E4E2;
     width: 67%;
     margin-left: 10%;
 }
 
 .btnsuccess{
-    background-color: #BFACE2;
+    background-color: #E5E4E2;
     color: black;
     padding: 10px 20px;
     border: none;
@@ -104,7 +104,7 @@ header {
 }
 
 .btn-success {
-    background-color: #BFACE2;
+    background-color: #E5E4E2;
     color: black;
     padding: 10px 20px;
     border: none;
@@ -114,7 +114,7 @@ header {
 }
 
 .btn-success:hover {
-    background-color: #76619e;
+    background-color: #A9A9A9;
 }
 
 /* Image and result styling */
@@ -130,10 +130,20 @@ img {
 h2, h3 {
     color: #000000;
     text-align: left;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    text-align: left;
+    margin-left: -3%;
+    margin-top: 0;
+    position: fixed;
+    font-size: 30px;
+    font-family: Arial black, Helvetica, sans-serif
 }
 
 hr {
-    border: 1px solid #645CBB;
+    border: 1px solid #36454F;
 }
 
 /* Add some padding for the buttons */
@@ -141,13 +151,33 @@ hr {
     margin-top: 10px;
 }
 
+.btn2{
+    display: inline-block; /* Align buttons in a line */
+    margin: 0 10px; /* Space between buttons */
+}
+
+.btn2 button {
+    background-color: #A9A9A9; /* Background color for the buttons */
+    color: black; /* Text color for better contrast */
+    border: none; /* Remove default borders */
+    padding: 10px 20px; /* Add some padding */
+    font-size: 16px; /* Adjust text size */
+    border-radius: 5px; /* Add rounded corners */
+    cursor: pointer; /* Change cursor on hover */
+    transition: background-color 0.3s; /* Smooth hover effect */
+    margin-left: 37vh;
+    position: sticky;
+}
+    
+
 .sidebar {
-    background-color: #645CBB;
+    background-color: #A9A9A9;
     width: 250px;
-    height: 1000px;
+    height: 1050px;
     padding: 80px;
     box-sizing: border-box;
     position: fixed;
+    margin-top: -7%;
 }
 
 .user-account {
@@ -160,14 +190,49 @@ hr {
     border-radius: 10px;
 }
  
-.btn0{
-    background-color: #645CBB;
-    border-radius: 10px;
+.user{
+    margin-top: 10px;
+    margin-right: 76%;
+    margin-left: 13%;
+}
 
+.btn01{
+    border-radius: 10px;
+    background-color: #A9A9A9;
+}
+
+.btn0{
+    background-color: #A9A9A9;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
+    justify-content: flex-end;
+    position: fixed;
+}
+
+.tab{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btnn{
+    background-color: #A9A9A9;
+    border-radius: 10px;
+    justify-content: flex-end;
+    bottom: 10px;
+    position: fixed;
+    margin-right: 10px;
+}
+
+.back{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    height: 91vh
 }
 
 .btn1{
-    background-color: #645CBB;
+    background-color: #A9A9A9;
     border-radius: 10px;
 }
 
@@ -180,18 +245,23 @@ hr {
 
 h4{
     font-size: 30px;
+    margin-top: 42%;
+    margin-left: -17%;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 h2 {
     margin-top: 0;
     font-size: 30px;
     margin-left: 0%;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .history-entry {
     margin-top: 10px;
     font-size: 14px;
     margin-left: -60%;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .category-container {

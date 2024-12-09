@@ -4,7 +4,7 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     padding: 50px;
-    background-color: #ECF2FF;
+    background-color: #E5E4E2;
     background-image: url('/static/images/ava2.png');
     background-repeat: no-repeat;
     background-position-x: 1150px;
@@ -20,22 +20,24 @@ body {
     margin-left: 20px;
     margin-top: 20px;
     margin-bottom: 90px;
-    background-color: #645CBB;
+    background-color: #36454F;
 }
 
 h1 {
-    color: #645CBB;
+    color: #36454F;
     font-size: 100px;
     margin-right: 910px;
     margin-left: 20px;
+    font-family: Arial black, Helvetica, sans-serif;
 }
 
 p {
-    color: #645CBB;
+    color: #36454F;
     font-size: 20px;
     margin-right: 950px;
     margin-left: 20px;
     margin-bottom: 100px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .buttons {
@@ -67,44 +69,44 @@ p {
 }
 
 .btn1{
-    color: #645CBB;
+    color: #36454F;
     margin-right: 220px;
     margin-left: 0px;
     padding: 10px 20px;
-    background-color: #ECF2FF;
+    background-color: #E5E4E2;
     border: #F9E8C9;
     font-size: 30px;
 }
 
 .btn2{
-    color: #645CBB;
+    color: #36454F;
     margin-right: 240px;
     margin-left: 0px;
     padding: 10px 20px;
-    background-color: #ECF2FF;
+    background-color: #E5E4E2;
     border: #F9E8C9;
     font-size: 30px;
 }
 
 .btn3{
-    color: #645CBB;
+    color: #36454F;
     margin-right: 0px;
     margin-left: 0px;
     padding: 10px 20px;
-    background-color: #ECF2FF;
+    background-color: #E5E4E2;
     border: #F9E8C9;
     font-size: 30px;
 }
 
 .btn1:hover{
-    color: #E5D1FA;
+    color: #A9A9A9;
 }
 
 .btn2:hover{
-    color: #E5D1FA;
+    color: #A9A9A9;
 }
 .btn3:hover{
-    color: #E5D1FA;
+    color: #A9A9A9;
 }
 
 .wrapper .button{
@@ -114,11 +116,13 @@ p {
   float: left;
   margin: 0 60px;
   overflow: hidden;
-  background: #fff;
+  background: #E5E4E2;
   border-radius: 50px;
   cursor: pointer;
   box-shadow: 0px 10px 10px rgba(0,0,0,0.1);
   transition: all 0.3s ease-out;
+  color: #36454F;
+  font-family: Arial, Helvetica, sans-serif;
 }
 .wrapper .button:hover{
   width: 200px;
@@ -134,7 +138,7 @@ p {
   transition: all 0.3s ease-out;
 }
 .wrapper .button:nth-child(1):hover .icon{
-  background: #4267B2;
+  background: #36454F;
 }
 .wrapper .button:nth-child(2):hover .icon{
   background: #1DA1F2;
@@ -154,7 +158,7 @@ p {
   transition: all 0.3s ease-out;
 }
 .wrapper .button:hover .icon i{
-  color: #fff;
+  color: white;
 }
 .wrapper .button span{
   font-size: 20px;
@@ -164,17 +168,17 @@ p {
   transition: all 0.3s ease-out;
 }
 .wrapper .button:nth-child(1) span{
-  color: #4267B2;
+  color: #36454F;
 }
 .wrapper .button:nth-child(2) span{
-  color: #1DA1F2;
+  color: #36454F;
 }
 .wrapper .button:nth-child(3) span{
-  color: #E1306C;
+  color: #36454F;
 }
 .wrapper .button:nth-child(4) span{
-  color: #333;
+  color: #36454F;
 }
 .wrapper .button:nth-child(5) span{
-  color: #ff0000;
+  color: #36454F;
 }

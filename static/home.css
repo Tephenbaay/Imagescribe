@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     padding: 50px;
-    background-color: #ECF2FF;
+    background-color: #E5E4E2;
     background-image: url('/static/images/ava5.png/');
     background-repeat: no-repeat;
     background-position-x: 1150px;
@@ -18,28 +18,31 @@ body {
     margin-left: 20px;
     margin-top: 20px;
     margin-bottom: 90px;
-    background-color: #645CBB;
+    background-color: #36454F;
 }
 
 h1 {
-    color: #645CBB;;
+    color: #36454F;;
     font-size: 100px;
     margin-right: 910px;
     margin-left: 20px;
+    font-family: Arial black, Helvetica, sans-serif;
 }
 
 h4 {
-    color: #645CBB;
+    color: #36454F;
     font-size: 35px;
     margin-right: 890px;
     margin-left: 20px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 p {
-    color: #645CBB;
+    color: #36454F;
     font-size: 20px;
     margin-right: 890px;
     margin-left: 20px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .buttons {
@@ -48,7 +51,7 @@ p {
     margin-left: 20px;
 }
 .btn {
-    background-color: #BFACE2;
+    background-color: #A9A9A9;
     color: black;
     padding: 25px 70px;
     margin: 30px;
@@ -71,50 +74,50 @@ p {
 }
 
 .btn1{
-    color: #645CBB;
+    color: #36454F;
     margin-right: 220px;
     margin-left: 0px;
     padding: 10px 20px;
-    background-color: #ECF2FF;
+    background-color: #E5E4E2;
     border: #FFF8E8;
     font-size: 30px;
 }
 
 .btn2{
-    color: #645CBB;
+    color: #36454F;
     margin-right: 240px;
     margin-left: 0px;
     padding: 10px 20px;
-    background-color: #ECF2FF;
+    background-color: #E5E4E2;
     border: #FFF8E8;
     font-size: 30px;
 }
 
 .btn3{
-    color: #645CBB;
+    color: #36454F;
     margin-right: 0px;
     margin-left: 0px;
     padding: 10px 20px;
-    background-color: #ECF2FF;
+    background-color: #E5E4E2;
     border: #FFF8E8;
     font-size: 30px;
 }
 
 .btn1:hover{
-    color: #E5D1FA;
+    color: #A9A9A9;
 }
 
 .btn2:hover{
-    color: #E5D1FA;
+    color: #A9A9A9;
 }
 .btn3:hover{
-    color: #E5D1FA;
+    color: #A9A9A9;
 }
 
 a{
-    color: #645CBB;
+    color: #36454F;
 }
  
 a:hover{
-    color: #E5D1FA;
+    color: #A9A9A9;
 }
