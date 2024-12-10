@@ -5,10 +5,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="/static/logo.png/">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='chat.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='loading.css') }}"> <!-- Link to new CSS file -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='loading.css') }}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 </head>
 <body>
   <!-- Sticky Header -->          
@@ -17,6 +19,7 @@
       <img src="static/images/tab.png" alt="tab button" width="40px" height="40px">
     </button>
   </div>
+          <h2>ImageScribe</h2>
   <header class="header">
     <div class="user">
       <button class="btn01" onclick="window.location.href='/user'">
@@ -27,34 +30,37 @@
     <div class="header-icons">
     </div>
   </header>
-
+  
   <!-- Main content wrapper -->
   <div class="main-wrapper">
-    <aside class="sidebar">
-      <h1 class="logo">ImageScribe</h1>
-
-      <h4>History</h4>
-      {% if history %}
-        {% for entry in history %}
-          <div class="history-entry" onclick="showHistory('{{ loop.index0 }}')">
-            <p>{{ entry.caption[:20] }}...</p>
-          </div>
-        {% endfor %}
-      {% else %}
-        <p>No history available.</p>
-      {% endif %}
-    </aside>
+    <img class="menu" id="menu-btn" src="static/images/menu.png" alt="menu button">
+    <div class="sidebar" id="sidebar">
+        <h1 class="logo">ImageScribe</h1>
+        <h4 class="text-center">History</h4>
+        <ul class="list-group">
+            {% for history in upload_history %}
+                <li class="list-group-item">
+                    <form action="{{ url_for('history_image', filename=history.filename) }}" method="GET">
+                        <button type="submit" class="btn btn-link w-100 text-left">
+                            {{ history.filename }}
+                        </button>
+                    </form>
+                </li>
+            {% else %}
+          <li class="list-group-item">No uploads found.</li>
+      {% endfor %}
+  </ul>
+    </div>
 
     <!-- Category Select Dropdown -->
 
     <!-- Display Results -->
     <div class="main-content content">
-
       <div class="content">
         <div class="typing-effect">
             ImageScribe
         </div>
-    </div>
+      </div>
     
       {% if results %}
         {% for result in results %}
@@ -130,6 +136,25 @@
 
   <script>
 
+document.addEventListener("DOMContentLoaded", function() {
+    const menuButton = document.getElementById("menu-btn");
+    const sidebar = document.getElementById("sidebar");
+
+    // Ensure elements exist
+    if (menuButton && sidebar) {
+      menuButton.addEventListener("click", function() {
+        sidebar.classList.toggle("visible"); // Toggle visibility
+      });
+    } else {
+      console.error("Menu button or sidebar element not found!");
+    }
+  });
+
+  menuButton.addEventListener("click", function() {
+  console.log("Menu button clicked!");
+  sidebar.classList.toggle("visible");
+});
+
 const textElement = document.querySelector('.typing-effect');
 const finalText = 'IMAGESCRIBE'; // The final text to display
 let currentText = ''; // Keeps track of the finalized text
@@ -173,24 +198,6 @@ typeText();
       document.getElementById('submit-btn').disabled = true; 
     }
 
-    function showHistory(index) {
-      const historyData = {{ history|default([])|tojson }};
-      const entry = historyData[index];
-      const mainContent = document.querySelector('.main-content');
-      mainContent.innerHTML = `
-        <div class="entry">
-          <img src="/static/${entry.img_path}" height="400px" width="400px">
-        </div>
-        <div>
-          <h2> Caption: ${entry.caption}</h2>
-          <img class="speaker-icon" src="static/images/speaker.png" onclick="new Audio('/static/${entry.caption_audio}').play()" alt="speaker">
-        </div>
-        <div>
-          <h3> Description: ${entry.description}</h3>
-          <img class="speaker-icon" src="static/images/speaker.png" onclick="new Audio('/static/${entry.description_audio}').play()" alt="speaker">
-        </div>
-      `;
-    }
   </script>
 
 </body>

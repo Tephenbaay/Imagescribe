@@ -121,3 +121,110 @@ a{
 a:hover{
     color: #A9A9A9;
 }
+
+/* Responsive adjustment for smaller screens */
+@media (max-width: 700px) {
+    .button {
+        margin-top: -10%;
+        margin-left: 20px;
+        display: flex;
+        flex-direction: column-reverse;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: stretch;
+    }
+    .btn1{
+        margin: auto;
+        font-size: 15px;
+        padding: 10px 5px;
+    } 
+    .btn2{
+        margin: auto;
+        font-size: 15px;
+        padding: 10px 5px;
+    } 
+    .btn3{
+        margin: auto;
+        font-size: 15px;
+        padding: 10px 5px;
+    }
+    #horizontal-line{
+        width: 90%;
+    }
+    h1{
+        flex-direction: column-reverse;
+        margin: 50px 0;
+        font-size: 50px;
+        margin-top: -20%;
+        margin-left: -3%;
+    }
+    h4{
+        font-size: 20px;
+        margin: 50px 0;
+    }
+    .buttons{
+        margin-left: 25%;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: flex-start;
+    }
+    .btn{
+        margin: auto;
+        padding: 20px 40px;
+        font-size: 20px;
+        position: fixed;
+    }
+}
+
+@media (max-width: 390px) {
+    .button {
+        margin-top: -10%;
+        margin-left: 20px;
+        display: flex;
+        flex-direction: column-reverse;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: stretch;
+    }
+    .btn1{
+        margin: auto;
+        font-size: 15px;
+        padding: 10px 5px;
+    } 
+    .btn2{
+        margin: auto;
+        font-size: 15px;
+        padding: 10px 5px;
+    } 
+    .btn3{
+        margin: auto;
+        font-size: 15px;
+        padding: 10px 5px;
+    }
+    #horizontal-line{
+        width: 90%;
+    }
+    h1{
+        flex-direction: column-reverse;
+        margin: 50px 0;
+        font-size: 50px;
+        margin-top: -20%;
+        margin-left: -12%;
+    }
+    h4{
+        font-size: 20px;
+        margin: 50px 0;
+    }
+    .buttons{
+        margin-left: 20%;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: flex-start;
+    }
+    .btn{
+        margin: auto;
+        padding: 20px 40px;
+        font-size: 20px;
+        position: fixed;
+    }
+}

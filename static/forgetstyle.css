@@ -89,3 +89,21 @@ p {
 a {
     color: black;
 }
+
+@media (max-width: 390px) {
+    h1{
+        flex-direction: column-reverse;
+        margin: 50px 0;
+        font-size: 50px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .container {
+        margin: 50px 0;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .eyecon{
+        top: 55px;
+    }
+}

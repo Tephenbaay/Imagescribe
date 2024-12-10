@@ -24,6 +24,8 @@ h1{
 h2{
     font-size: 35px;
     color: #1e1b3a;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
 }
 
 /* Container for the login form */
@@ -38,14 +40,14 @@ h2{
 }
 
 /* Form elements */
-.form-group {
-    margin-bottom: 15px;
-}
 
 label {
     display: block;
     text-align: left;
     margin-bottom: 5px;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: #333;
 }
 
 input {
@@ -55,6 +57,8 @@ input {
     border: 1px solid #ccc;
     border-radius: 15px;
     font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
 }
 
 .btn{
@@ -89,16 +93,44 @@ a:hover {
 
 p {
     font-size: 14px;
+    font-family: 'Roboto', sans-serif; /* Use the Google Font you selected */
+    font-size: 16px;
+    line-height: 1.6;
 }
 
 a {
     color: black;
 }
 
-.eyecon{
-    position: fixed;
-    width: 35px;
+.form-group {
+    margin-bottom: 15px;
+    position: relative; /* Make this the positioning context for the child elements */
+}
+
+.eyecon {
+    position: absolute; /* Position the eye icon relative to the .form-group container */
+    width: 35px; /* Adjust the size of the icon */
     cursor: pointer;
-    right: 1240px;
-    top: 505px;
+    right: 10px; /* Distance from the right edge of the password input field */
+    top: 55px; /* Vertically center it */
+    transform: translateY(-50%); /* Adjust for perfect centering */
+}
+
+@media (max-width: 390px) {
+    h1{
+        flex-direction: column-reverse;
+        margin: 50px 0;
+        font-size: 50px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .container {
+        margin: 50px 0;
+        margin-left: auto;
+        margin-right: auto;
+        width: 300px;
+    }
+    .eyecon{
+        top: 55px;
+    }
 }
