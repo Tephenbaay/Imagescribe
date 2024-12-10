@@ -121,10 +121,3 @@ a{
 a:hover{
     color: #A9A9A9;
 }
-
-/* Responsive adjustment for smaller screens */
-@media (max-width: 767px) {
-    .buttons .btn {
-        width: 80%;
-    }
-}

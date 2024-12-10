@@ -7,8 +7,6 @@
     <title>ImageScribe</title>
     <!-- Link to the external CSS file -->
     <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 <body>
     <div class="button">
@@ -21,10 +19,11 @@
 
     <h1><b>ImageScribe</b></h1>
     <h4>ImageScribe will help you to understand what’s on the image.</h4>
+    <p>To save your progress, <a href="/login"><b>click here</b></a> to sign in.</p>
     <div class="buttons">
        <!-- <button class="btn" onclick="window.location.href='/login'">Login</button>
         <button class="btn" onclick="window.location.href='/signup'">Sign Up</button>-->
-        <button class="btn" onclick="window.location.href='/login'">Get Started</button>
+        <button class="btn" onclick="window.location.href='/index'">Get Started</button>
     </div>
 </body>
 </html>

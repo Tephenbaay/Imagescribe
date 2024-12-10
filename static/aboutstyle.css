@@ -105,10 +105,3 @@ p {
 .btn3:hover{
     color: #A9A9A9;
 }
-p {
-    text-align: justify;
-    font-family: 'Roboto', sans-serif; /* Use the Google Font you selected */
-    font-size: 20px;
-    line-height: 1.6;
-    color: #333;
-}

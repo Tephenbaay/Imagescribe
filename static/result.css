@@ -128,10 +128,9 @@ img {
 }
 
 h2, h3 {
+    color: #000000;
     text-align: left;
-    font-family: 'Roboto', sans-serif;
-    line-height: 1.6;
-    color: #333;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 h1 {
@@ -140,9 +139,7 @@ h1 {
     margin-top: 0;
     position: fixed;
     font-size: 30px;
-    font-family: 'Roboto', sans-serif;
-    line-height: 1.6;
-    color: #333;
+    font-family: Arial black, Helvetica, sans-serif
 }
 
 hr {
@@ -250,18 +247,14 @@ h4{
     font-size: 30px;
     margin-top: 42%;
     margin-left: -17%;
-    font-family: 'Roboto', sans-serif;
-    line-height: 1.6;
-    color: #333;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 h2 {
     margin-top: 0;
     font-size: 30px;
     margin-left: 0%;
-    font-family: 'Roboto', sans-serif;
-    line-height: 1.6;
-    color: #333;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .history-entry {
