@@ -31,26 +31,23 @@
 
   <!-- Sidebar -->
   <div class="main-wrapper">
-    <img class="menu" id="menu-btn" src="static/images/menu.png" alt="menu button">
-    <div class="sidebar" id="sidebar">
-      <h1 class="logo">ImageScribe</h1>
-      <h4 class="text-center">History</h4>
-      <ul class="list-group">
-          {% for history in upload_history %}
-              <li class="list-group-item">
-                  <!-- Button to trigger the upload route with the filename -->
-                  <form action="{{ url_for('upload') }}" method="POST">
-                      <input type="hidden" name="filename" value="{{ history.filename }}">
-                      <button type="submit" class="btn btn-link w-100 text-left">
-                          {{ history.filename }}
-                      </button>
-                  </form>
-              </li>
-          {% else %}
-              <li class="list-group-item">No uploads found.</li>
-          {% endfor %}
-      </ul>
-  </div>
+    <img class="menu" id="menu-btn" src="static/images/menu.png" alt="menu button" style="width: 40px; cursor: pointer;">
+<div class="sidebar" id="sidebar">
+    <h1 class="logo">ImageScribe</h1>
+    <h4 class="text-center">History</h4>
+    <ul class="list-group">
+        {% for history in upload_history %}
+        <li class="list-group-item">
+            <form action="{{ url_for('upload') }}" method="POST">
+                <input type="hidden" name="filename" value="{{ history.filename }}">
+                <button type="submit" class="btn btn-link w-100 text-left">{{ history.filename }}</button>
+            </form>
+        </li>
+        {% else %}
+        <li class="list-group-item">No uploads found.</li>
+        {% endfor %}
+    </ul>
+</div>
   
     <!-- Main Content -->
     <div class="main-content">
@@ -67,16 +64,16 @@
 
       <!-- Caption and Description Card -->
       <div class="card" style="width: 100%; padding: 15px; margin: 10px auto; background-color: #E5E4E2;">
-        <h2>Caption: <i id="caption"></i>
+        <h2>Caption: <i id="caption">{{ caption }}</i>
           <button onclick="playAudio('{{ caption }}')">
             <img src="{{ url_for('static', filename='images/speaker.png') }}" alt="Play caption" width="24px">
           </button>
         </h2>
 
         <h2>Description:</h2>
-        <h3 id="first-description" style="text-align: justify;"></h3>
-        <h3 id="second-description" style="text-align: justify;"></h3>
-        <h3 id="third-description" style="text-align: justify;"></h3>
+        <h3 id="first-description" style="text-align: justify;">{{ first_description }}</h3>
+        <h3 id="second-description" style="text-align: justify;">{{ second_description }}</h3>
+        <h3 id="third-description" style="text-align: justify;">{{ third_description }}</h3>
         <button onclick="playDescriptionAudio()">
           <img src="{{ url_for('static', filename='images/speaker.png') }}" alt="Play description" width="24px">
         </button>
@@ -183,19 +180,19 @@
       type();
     }
 
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
     const menuButton = document.getElementById("menu-btn");
     const sidebar = document.getElementById("sidebar");
 
-    // Ensure elements exist
     if (menuButton && sidebar) {
-      menuButton.addEventListener("click", function() {
-        sidebar.classList.toggle("visible"); // Toggle visibility
-      });
+        menuButton.addEventListener("click", function () {
+            sidebar.classList.toggle("visible");
+        });
     } else {
-      console.error("Menu button or sidebar element not found!");
+        console.error("Menu button or sidebar not found!");
     }
-  });
+});
+
 
   menuButton.addEventListener("click", function() {
   console.log("Menu button clicked!");

@@ -132,19 +132,11 @@ def enhance_description(description):
     enhanced_text = " ".join([sent.text for sent in doc.sents])  # Fix grammar issues by tokenizing and reconstructing
     return enhanced_text
 
-def ensure_complete_sentence(text):
-    """
-    Ensures the text ends with a complete sentence by removing trailing incomplete phrases.
-    """
-    if text.strip()[-1] not in ".!?":
-        # Find the last complete sentence using regex
-        complete_sentence = re.findall(r".*?[.!?]", text)
-        if complete_sentence:
-            return complete_sentence[-1].strip()
-        else:
-            # If no sentence end is found, return a fallback
-            return text.strip() + "."
-    return text.strip()
+# Function to ensure a paragraph ends with a period
+def ensure_complete_sentence(paragraph):
+    if not paragraph.endswith('.'):
+        paragraph = paragraph.rstrip(',.!') + '.'
+    return paragraph
 
 # Function to generate a predicted description for the uploaded image based on the caption
 def generate_predicted_description(image_path):
@@ -173,12 +165,8 @@ def generate_predicted_description(image_path):
 
     extended_description = generate_extended_description(first_paragraph)
 
-    if '\n\n' in extended_description:
-        paragraphs = extended_description.split('\n\n')
-        second_paragraph = paragraphs[1] if len(paragraphs) > 1 else paragraphs[0]
-    else:
-        second_paragraph = extended_description
-
+    # Extract the second paragraph and ensure it ends with a period
+    second_paragraph = extended_description.split('\n\n')[1] if '\n\n' in extended_description else extended_description
     second_paragraph = ensure_complete_sentence(second_paragraph)
 
     first_paragraph = enhance_description(first_paragraph)
@@ -226,6 +214,9 @@ class History(db.Model):
     caption = db.Column(db.String(500), nullable=False)
     description = db.Column(db.Text, nullable=False)
     category = db.Column(db.String(100), nullable=False)
+    first_description = db.Column(db.Text, nullable=False)
+    second_description = db.Column(db.Text, nullable=False)
+    third_description = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     user = db.relationship('User', backref=db.backref('history', lazy=True))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)  # Add this line to store the creation timestamp
@@ -396,7 +387,9 @@ def upload():
             new_history = History(
                 filename=filename,
                 caption=caption,
-                description=first_description + "\n\n" + second_description + "\n\n" + third_description,
+                first_description=first_description,
+                second_description=second_description,
+                third_description=third_description,
                 category=category,
                 user_id=current_user.id  # Ensure the user is logged in and has an id
             )
@@ -422,6 +415,7 @@ def upload():
 
             # Retrieve the upload history for the current user
             upload_history = History.query.filter_by(user_id=current_user.id).order_by(History.created_at.desc()).all()
+            upload_history = upload_history[:15]  # Limit to the most recent 15 entries
 
             return render_template(
                 'result.html', 
@@ -444,11 +438,14 @@ def history_image(filename):
     history = History.query.filter_by(filename=filename, user_id=current_user.id).first()
     
     if history:
+        # Use the description saved in the database
+        description = history.description
+
         return render_template(
             'result.html',
             filename=history.filename,
             caption=history.caption,
-            first_description=history.first_description, 
+            first_description=history.first_description,
             second_description=history.second_description,
             third_description=history.third_description,
             category=history.category,
