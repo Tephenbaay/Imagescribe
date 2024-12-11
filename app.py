@@ -18,7 +18,7 @@ import re
 from datetime import datetime
 
 # Create Flask app instance
-app = Flask(__name__, template_folder='.')
+app = Flask(__name__)
 babel = Babel(app)
 
 pymysql.install_as_MySQLdb()

@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="icon" href="logo.png">
+    <link rel="icon" href="/static/logo.png/">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ImageScribe</title>
-    <link rel="stylesheet" href="userstyle.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='userstyle.css') }}">
 </head>
 <body>
 <div class="back">
-    <button class="btn1" onclick="window.location.href='/index'"><img src="back.png" alt="back button" width="40px" height="40px"></button>
+    <button class="btn1" onclick="window.location.href='/index'"><img src="static/images/back.png" alt="back button" width="40px" height="40px"></button>
 </div>
   <h1>ImageScribe</h1>
     <div class="container">
