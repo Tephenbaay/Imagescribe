@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" href="/static/logo.png/">
+    <link rel="icon" href="logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ImageScribe</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='signstyle.css') }}">
+    <link rel="stylesheet" href="signstyle.css">
 </head>
 <body>
     <h1>ImageScribe</h1>
@@ -26,7 +26,7 @@
             <div class="form-group" id="passwordGroup">
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
-                <img src="{{ url_for('static', filename='images/eyecon1.png') }}" onclick="togglePassword()" class="eyecon" id="eyecon" alt="Show/Hide Password">
+                <img src="eyecon1.png" onclick="togglePassword()" class="eyecon" id="eyecon" alt="Show/Hide Password">
                 <div class="password-requirements" id="requirements">
                     <ul>
                         <li>Be at least 8 characters long</li>
@@ -48,10 +48,10 @@
 
             if (passwordField.type === 'password') {
                 passwordField.type = 'text'; // Show password
-                eyeIcon.src = '{{ url_for("static", filename="images/eyecon.png") }}'; // Change to hide icon
+                eyeIcon.src = 'eyecon.png'; // Change to hide icon
             } else {
                 passwordField.type = 'password'; // Hide password
-                eyeIcon.src = '{{ url_for("static", filename="images/eyecon1.png") }}'; // Change back to show icon
+                eyeIcon.src = 'eyecon1.png'; // Change back to show icon
             }
         }
 

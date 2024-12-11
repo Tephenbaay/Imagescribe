@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ImageScribe</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='logstyle.css') }}">
-    <link rel="icon" href="/static/logo.png/">
+    <link rel="stylesheet" href="logstyle.css">
+    <link rel="icon" href="logo.png">
 </head>
 <body>
     <h1>ImageScribe</h1>
@@ -22,7 +22,7 @@
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password" required>
-                <img src="{{ url_for('static', filename='images/eyecon1.png') }}" 
+                <img src="eyecon1.png" 
                     onclick="togglePassword()" 
                     class="eyecon" 
                     id="eyecon" 
@@ -50,10 +50,10 @@
 
             if (passwordField.type === 'password') {
                 passwordField.type = 'text'; // Show password
-                eyeIcon.src = "{{ url_for('static', filename='images/eyecon.png') }}"; // Change to hide icon
+                eyeIcon.src = "eyecon.png"; // Change to hide icon
             } else {
                 passwordField.type = 'password'; // Hide password
-                eyeIcon.src = "{{ url_for('static', filename='images/eyecon1.png') }}"; // Change back to show icon
+                eyeIcon.src = "eyecon1.png"; // Change back to show icon
             }
         }
     </script>
