@@ -31,9 +31,8 @@ DB_USER = os.getenv('AWS_RDS_USER')
 DB_PASSWORD = os.getenv('AWS_RDS_PASSWORD')
 DB_NAME = os.getenv('AWS_RDS_DB_NAME')
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:Imagescribe11!@imagescribe.cx6aooymq47o.ap-southeast-2.rds.amazonaws.com:3306/imagescribe'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:imagescribe@localhost:3306/imagescribe'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
@@ -72,10 +71,6 @@ class User(UserMixin, db.Model):
 
     def get_id(self):
         return str(self.id)  # Ensure that the ID is returned as a string
-
-# Set Babel configuration after app creation
-app.config['BABEL_DEFAULT_LOCALE'] = 'en'
-app.config['BABEL_SUPPORTED_LOCALES'] = ['en', 'es', 'fr', 'de', 'fil']
 
 # Directory where your images will be stored
 image_directory = os.path.join(app.root_path, 'static', 'uploads')
@@ -296,7 +291,6 @@ def index():
     upload_history = History.query.filter_by(user_id=current_user.id).all()
     
     # Fetch additional results to display in the main content (if needed)
-    greeting = _("Welcome to the multilingual app!")
     return render_template('index.html', 
                     captions=generated_captions, 
                     descriptions=generated_descriptions, 
@@ -456,4 +450,4 @@ def history_image(filename):
     return redirect(url_for('index'))  # If not found, redirect to the home page
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host="0.0.0.0", port=8080)

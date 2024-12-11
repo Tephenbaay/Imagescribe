@@ -34,8 +34,8 @@
     <img class="menu" id="menu-btn" src="menu.png" alt="menu button" style="width: 40px; cursor: pointer;">
 <div class="sidebar" id="sidebar">
     <h1 class="logo">ImageScribe</h1>
-    <h4 class="text-center">History</h4>
-    <ul class="list-group">
+    <h4 class="text-center">History</h4><br>
+    <ul class="list-group text-center">
         {% for history in upload_history %}
         <li class="list-group-item">
             <form action="{{ url_for('upload') }}" method="POST">
@@ -114,7 +114,7 @@
 
   <div class="back">
     <button class="btnn" onclick="window.location.href='/home'">
-      <img src="out.png" alt="out button" width="40px" height="40px">
+      <img src="/static/iamges/out.png/" alt="out button" width="40px" height="40px">
     </button>
   </div>
 

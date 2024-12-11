@@ -35,7 +35,7 @@ header {
 /* Scrollable main content */
 .main-content {
     flex: 1;
-    width: 300px; /* Adjust the width of the sidebar as needed */
+    width: 250px; /* Adjust the width of the sidebar as needed */
     overflow: hidden; /* Allows scrolling for the content */
     padding: 50px;
     background-color: #E5E4E2;
@@ -129,7 +129,7 @@ hr {
 
 .sidebar {
     background-color: #A9A9A9;
-    width: 300px;
+    width: 250px;
     height: 1050px;
     padding: 80px;
     box-sizing: border-box;
@@ -466,7 +466,7 @@ h2{
         position: fixed;
         top: 0;
         left: -250px; /* Start off-screen */
-        width: 300px;
+        width: 250px;
         height: 110%;
         background-color: #A9A9A9;
         box-shadow: 2px 0 5px rgb(77, 77, 77);
@@ -530,3 +530,33 @@ h2{
         margin-left: 82%;
     }
 }
+.list-group {
+    background: transparent;
+    border: none;
+  }
+
+  .list-group-item {
+    background: transparent;
+    border: none;
+    padding: 10px 15px;
+    color: #fff;
+  }
+
+  .list-group-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .list-group-item button {
+    color: inherit;
+    font-size: 16px;
+    text-align: left;
+    padding: 10px 15px;
+    width: 100%;
+    background: transparent;
+    font-family: 'Roboto', sans-serif;
+    border: none;
+  }
+
+  .list-group-item button:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }

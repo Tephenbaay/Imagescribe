@@ -184,7 +184,7 @@ hr {
 
 .sidebar {
     background-color: #A9A9A9;
-    width: 300px;
+    width: 250px;
     height: 1050px;
     padding: 80px;
     box-sizing: border-box;
@@ -419,7 +419,7 @@ p{
         background-color: transparent;
         padding: 1px;
         position: fixed;
-        width: 300px; /* Adjust the width of the sidebar as needed */
+        width: 250px; /* Adjust the width of the sidebar as needed */
         bottom: 0; /* Sticks to the bottom of the screen */
         width: auto;
         margin-left: auto;
@@ -531,7 +531,7 @@ p{
         position: fixed;
         top: 0;
         left: -250px; /* Start off-screen */
-        width: 300px;
+        width: 250px;
         height: 110%;
         background-color: #A9A9A9;
         box-shadow: 2px 0 5px rgb(77, 77, 77);
@@ -626,3 +626,34 @@ p{
         margin-left: 82%;
     }
 }
+
+.list-group {
+    background: transparent;
+    border: none;
+  }
+
+  .list-group-item {
+    background: transparent;
+    border: none;
+    padding: 10px 15px;
+    color: #fff;
+  }
+
+  .list-group-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .list-group-item button {
+    color: inherit;
+    font-size: 16px;
+    text-align: left;
+    padding: 10px 15px;
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    background: transparent;
+    border: none;
+  }
+
+  .list-group-item button:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
