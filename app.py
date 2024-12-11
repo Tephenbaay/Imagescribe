@@ -18,7 +18,7 @@ import re
 from datetime import datetime
 
 # Create Flask app instance
-app = Flask(__name__)
+app = Flask(__name__, template_folder='.')
 babel = Babel(app)
 
 pymysql.install_as_MySQLdb()
@@ -455,4 +455,4 @@ def history_image(filename):
     return redirect(url_for('index'))  # If not found, redirect to the home page
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0" PORT=5000)
+    app.run()
