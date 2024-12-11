@@ -22,3 +22,15 @@ __pycache__/
 translations/
 .vscode/
 format_json.py
+generated_captions.txt
+generated_descriptions.txt
+image_captioning_model.h5
+tokenizer_flickr8k.pkl
+tokenizer.pkl
+remove_missing_features.py
+extract_features.py
+clean_descriptions.py
+features.pkl
+features_flickr8k.pkl
+model_9.h5
+descriptions.txt
