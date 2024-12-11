@@ -6,11 +6,11 @@ import torch
 from transformers import BlipProcessor, BlipForConditionalGeneration, GPT2LMHeadModel, GPT2Tokenizer
 import random
 from train_model import generate_category
-from flask_babel import Babel, gettext as _
 import spacy
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import pymysql
+from whitenoise import WhiteNoise
 from flask_migrate import Migrate
 from flask_login import LoginManager, current_user, login_required, login_user, UserMixin
 from gtts import gTTS
@@ -19,7 +19,8 @@ from datetime import datetime
 
 # Create Flask app instance
 app = Flask(__name__)
-babel = Babel(app)
+
+app.wsgi_app = WhiteNoise(app.wsgi_app, root=os.path.join(app.root_path, 'static'), prefix='static/')
 
 pymysql.install_as_MySQLdb()
 
