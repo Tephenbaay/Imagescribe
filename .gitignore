@@ -21,3 +21,4 @@ migrations/
 __pycache__/
 translations/
 .vscode/
+format_json.py
