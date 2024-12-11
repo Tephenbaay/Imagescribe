@@ -455,4 +455,4 @@ def history_image(filename):
     return redirect(url_for('index'))  # If not found, redirect to the home page
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host="0.0.0.0" PORT=5000)
