@@ -31,7 +31,7 @@ DB_USER = os.getenv('AWS_RDS_USER')
 DB_PASSWORD = os.getenv('AWS_RDS_PASSWORD')
 DB_NAME = os.getenv('AWS_RDS_DB_NAME')
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:imagescribe@localhost:3306/imagescribe'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:Imagescribe11!@imagescribe.cx6aooymq47o.ap-southeast-2.rds.amazonaws.com:3306/imagescribe'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
