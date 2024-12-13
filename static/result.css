@@ -636,24 +636,25 @@ p{
     background: transparent;
     border: none;
     padding: 10px 15px;
-    color: #fff;
+    color: #000000;
   }
 
   .list-group-item:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: transparent;
   }
 
   .list-group-item button {
-    color: inherit;
-    font-size: 16px;
+    color: black;
+    font-size: 15px;
     text-align: left;
     padding: 10px 15px;
-    font-family: 'Roboto', sans-serif;
-    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    width: auto;
     background: transparent;
     border: none;
+    margin-left: -30%;
   }
 
   .list-group-item button:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(94, 89, 69, 0.1);
   }

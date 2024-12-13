@@ -10,7 +10,6 @@ import spacy
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import pymysql
-from whitenoise import WhiteNoise
 from flask_migrate import Migrate
 from flask_login import LoginManager, current_user, login_required, login_user, UserMixin
 from gtts import gTTS
@@ -20,18 +19,16 @@ from datetime import datetime
 # Create Flask app instance
 app = Flask(__name__)
 
-app.wsgi_app = WhiteNoise(app.wsgi_app, root=os.path.join(app.root_path, 'static'), prefix='static/')
-
 pymysql.install_as_MySQLdb()
 
-# Fetch environment variables
+ #Fetch environment variables
 DB_HOST = os.getenv('AWS_RDS_HOST')
 DB_PORT = os.getenv('AWS_RDS_PORT', '3306')  # Default to 5432 for PostgreSQL
 DB_USER = os.getenv('AWS_RDS_USER')
 DB_PASSWORD = os.getenv('AWS_RDS_PASSWORD')
 DB_NAME = os.getenv('AWS_RDS_DB_NAME')
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:imagescribe@localhost:3306/imagescribe'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:Imagescribe11!@imagescribe.cx6aooymq47o.ap-southeast-2.rds.amazonaws.com:3306/imagescribe'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -49,6 +46,7 @@ try:
     connection.close()
 except Exception as e:
     print(f"Error connecting to database: {e}")
+
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -208,7 +206,6 @@ class History(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     filename = db.Column(db.String(120), nullable=False)
     caption = db.Column(db.String(500), nullable=False)
-    description = db.Column(db.Text, nullable=False)
     category = db.Column(db.String(100), nullable=False)
     first_description = db.Column(db.Text, nullable=False)
     second_description = db.Column(db.Text, nullable=False)
@@ -434,7 +431,6 @@ def history_image(filename):
     
     if history:
         # Use the description saved in the database
-        description = history.description
 
         return render_template(
             'result.html',
@@ -450,4 +446,4 @@ def history_image(filename):
     return redirect(url_for('index'))  # If not found, redirect to the home page
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=8080)
+    app.run(debug=True, host="0.0.0.0", port=8080)

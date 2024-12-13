@@ -57,9 +57,8 @@
     <!-- Display Results -->
     <div class="main-content content">
       <div class="content">
-        <div class="typing-effect">
-            ImageScribe
-        </div>
+        <div class="typing-effect" id="typing-effect">IMAGESCRIBE</div>
+        
       </div>
     
       {% if results %}
@@ -155,6 +154,8 @@ document.addEventListener("DOMContentLoaded", function() {
   sidebar.classList.toggle("visible");
 });
 
+
+document.addEventListener("DOMContentLoaded", function() {
 const textElement = document.querySelector('.typing-effect');
 const finalText = 'IMAGESCRIBE'; // The final text to display
 let currentText = ''; // Keeps track of the finalized text
@@ -191,12 +192,14 @@ function typeText() {
 
 // Start the typing effect
 typeText();
-
+});
 
     function showLoading() {
       document.getElementById('loading-overlay').style.display = 'flex'; 
       document.getElementById('submit-btn').disabled = true; 
     }
+  
+  
 
   </script>
 
