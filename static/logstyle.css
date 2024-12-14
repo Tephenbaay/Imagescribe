@@ -2,7 +2,11 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
+<<<<<<< HEAD
     background-color: #E5E4E2;
+=======
+    background-color: #ECF2FF;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     background-image: url('/static/images/ava7.png');
     background-size: 600px;
     background-position-x: 900px;
@@ -11,26 +15,42 @@ body {
 }
 
 h1{
+<<<<<<< HEAD
     color: #36454F;
     font-size: 55px;
     margin-top: 90px;
+=======
+    color: #645CBB;
+    font-size: 55px;
+    margin-top: 100px;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     margin-bottom: 100px;
     margin-left: auto;
     margin-right: 850px;
     text-align: center;
+<<<<<<< HEAD
     font-family: Arial black, Helvetica, sans-serif;
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 }
 
 h2{
     font-size: 35px;
     color: #1e1b3a;
+<<<<<<< HEAD
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.6;
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 }
 
 /* Container for the login form */
 .container {
+<<<<<<< HEAD
     background-color: #A9A9A9;
+=======
+    background-color: #E3DFFD;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     padding: 30px;
     border-radius: 35px;
     width: 340px;
@@ -40,14 +60,23 @@ h2{
 }
 
 /* Form elements */
+<<<<<<< HEAD
+=======
+.form-group {
+    margin-bottom: 15px;
+}
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 
 label {
     display: block;
     text-align: left;
     margin-bottom: 5px;
+<<<<<<< HEAD
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
     color: #333;
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 }
 
 input {
@@ -57,8 +86,11 @@ input {
     border: 1px solid #ccc;
     border-radius: 15px;
     font-size: 14px;
+<<<<<<< HEAD
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 }
 
 .btn{
@@ -68,7 +100,11 @@ input {
 
 button.btn {
     width: 50%;
+<<<<<<< HEAD
     background-color: #E5E4E2;
+=======
+    background-color: #BFACE2;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     color: black;
     padding: 10px 20px;
     margin-top: 10px;
@@ -79,7 +115,11 @@ button.btn {
 }
 
 button.btn:hover {
+<<<<<<< HEAD
     background-color: #A9A9A9;
+=======
+    background-color: #E5D1FA;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 }
 
 /* Optional link style */
@@ -93,15 +133,19 @@ a:hover {
 
 p {
     font-size: 14px;
+<<<<<<< HEAD
     font-family: 'Roboto', sans-serif; /* Use the Google Font you selected */
     font-size: 16px;
     line-height: 1.6;
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 }
 
 a {
     color: black;
 }
 
+<<<<<<< HEAD
 .form-group {
     margin-bottom: 15px;
     position: relative; /* Make this the positioning context for the child elements */
@@ -134,3 +178,12 @@ a {
         top: 55px;
     }
 }
+=======
+.eyecon{
+    position: absolute;
+    width: 35px;
+    cursor: pointer;
+    right: 1240px;
+    top: 500px;
+}
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f

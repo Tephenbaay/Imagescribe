@@ -7,6 +7,7 @@ from transformers import BlipProcessor, BlipForConditionalGeneration, GPT2LMHead
 import random
 from train_model import generate_category
 import spacy
+<<<<<<< HEAD
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import pymysql
@@ -15,10 +16,15 @@ from flask_login import LoginManager, current_user, login_required, login_user, 
 from gtts import gTTS
 import re
 from datetime import datetime
+=======
+from werkzeug.security import generate_password_hash, check_password_hash
+from gtts import gTTS
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 
 # Create Flask app instance
 app = Flask(__name__)
 
+<<<<<<< HEAD
 pymysql.install_as_MySQLdb()
 
  #Fetch environment variables
@@ -69,6 +75,23 @@ class User(UserMixin, db.Model):
 
     def get_id(self):
         return str(self.id)  # Ensure that the ID is returned as a string
+=======
+
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:imagescribe@localhost/imagescribe'
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+
+# db = SQLAlchemy(app)
+# migrate = Migrate(app, db)
+
+# login_manager = LoginManager()
+# login_manager.init_app(app)
+# login_manager.login_view = 'login'  # Replace 'login' with your actual login route
+
+app.secret_key = '9b1e5db5e7f14d2aa8e4ac2f6e3d2e33'
+
+# Set Babel configuration after app creation
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 
 # Directory where your images will be stored
 image_directory = os.path.join(app.root_path, 'static', 'uploads')
@@ -126,12 +149,15 @@ def enhance_description(description):
     enhanced_text = " ".join([sent.text for sent in doc.sents])  # Fix grammar issues by tokenizing and reconstructing
     return enhanced_text
 
+<<<<<<< HEAD
 # Function to ensure a paragraph ends with a period
 def ensure_complete_sentence(paragraph):
     if not paragraph.endswith('.'):
         paragraph = paragraph.rstrip(',.!') + '.'
     return paragraph
 
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 # Function to generate a predicted description for the uploaded image based on the caption
 def generate_predicted_description(image_path):
     image = load_image(image_path)
@@ -139,11 +165,16 @@ def generate_predicted_description(image_path):
     pixel_values = inputs["pixel_values"]
 
     with torch.no_grad():
+<<<<<<< HEAD
+=======
+        # Generate the base caption
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
         generated_ids = model.generate(
             pixel_values,
             temperature=1.0,
             top_k=50,
             top_p=0.95,
+<<<<<<< HEAD
             max_length=100
         )
 
@@ -157,12 +188,28 @@ def generate_predicted_description(image_path):
     )
     first_paragraph = ensure_complete_sentence(first_paragraph)
 
+=======
+            max_length=50
+        )
+
+    # Decode the generated caption
+    caption = processor.batch_decode(generated_ids, skip_special_tokens=True)[0]
+
+    # Generate the first paragraph based on the caption
+    first_paragraph = f"Based on the image caption: {caption}, we can deduce that the image depicts a scene containing several key elements. The main subject of the image is {caption.lower()}, and the scene is set in a {random.choice(['urban', 'natural', 'indoor', 'outdoor'])} environment. You can see details such as {random.choice(['people', 'buildings', 'nature', 'objects'])} in the background, creating an overall sense of {random.choice(['calm', 'busy', 'serene', 'dynamic'])}."
+
+    # Ensure the first paragraph ends with a period
+    first_paragraph = ensure_complete_sentence(first_paragraph)
+
+    # Enhance the description with GPT-2 to make it more detailed and explanatory
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     extended_description = generate_extended_description(first_paragraph)
 
     # Extract the second paragraph and ensure it ends with a period
     second_paragraph = extended_description.split('\n\n')[1] if '\n\n' in extended_description else extended_description
     second_paragraph = ensure_complete_sentence(second_paragraph)
 
+<<<<<<< HEAD
     first_paragraph = enhance_description(first_paragraph)
     second_paragraph = enhance_description(second_paragraph)
 
@@ -175,6 +222,14 @@ def generate_predicted_description(image_path):
     third_paragraph = enhance_description(third_paragraph)
 
     return first_paragraph, second_paragraph, third_paragraph
+=======
+    # Enhance both paragraphs using Spacy
+    first_paragraph = enhance_description(first_paragraph)
+    second_paragraph = enhance_description(second_paragraph)
+
+    # Return the description in a two-paragraph format
+    return first_paragraph, second_paragraph
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 
 # Load generated captions/descriptions from the file
 def load_generated_data(filepath):
@@ -202,6 +257,7 @@ def load_generated_data(filepath):
 generated_captions = load_generated_data('generated_captions.txt')
 generated_descriptions = load_generated_data('generated_descriptions.txt')
 
+<<<<<<< HEAD
 class History(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     filename = db.Column(db.String(120), nullable=False)
@@ -249,10 +305,15 @@ def login():
             flash("Incorrect email or password.", "error")
             return redirect(url_for('login'))
 
+=======
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     return render_template('login.html')
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
+<<<<<<< HEAD
     if request.method == 'POST':
         username = request.form['username']
         email = request.form['email']
@@ -293,6 +354,13 @@ def index():
                     descriptions=generated_descriptions, 
                     upload_history=upload_history,  
                     current_user=current_user)
+=======
+    return render_template('signup.html')
+
+@app.route('/')
+def index():
+    return render_template('index.html', captions=generated_captions, descriptions=generated_descriptions)
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 
 @app.route("/home", methods=['GET', 'POST'])
 def home():
@@ -315,11 +383,16 @@ def user():
     return render_template("user.html")
 
 @app.route('/history')
+<<<<<<< HEAD
 @login_required  # Ensure the user is logged in to view the history
 def history():
     user_history = History.query.filter_by(user_id=current_user.id).all()
     return render_template('history.html', history=user_history)
 
+=======
+def history():
+    return render_template('history.html')
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 
 uploads_directory = os.path.join('static', 'uploads')
 os.makedirs(uploads_directory, exist_ok=True)
@@ -331,6 +404,7 @@ def download_text():
     caption = request.form.get('caption')
     first_description = request.form.get('first_description')
     second_description = request.form.get('second_description')
+<<<<<<< HEAD
     third_description = request.form.get('third_description')
 
     # Create the text content
@@ -350,6 +424,22 @@ def download_text():
 
 @app.route('/submit', methods=['POST', 'GET'])
 @login_required  # Ensure that the user is logged in
+=======
+
+    # Create the text content
+    text_content = f"Filename: {filename}\n\n"
+    text_content += f"Predicted Caption: {caption}\n\n"
+    text_content += f"Predicted Description:\n{first_description}\n{second_description}\n"
+
+    # Create the response for file download
+    response = make_response(text_content)
+    response.headers['Content-Disposition'] = 'attachment; filename=captions_and_descriptions.txt'
+    response.mimetype = 'text/plain'
+
+    return response
+
+@app.route('/submit', methods=['POST', 'GET'])
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 def upload():
     if request.method == 'POST':
         if 'my_image' not in request.files:
@@ -359,7 +449,11 @@ def upload():
 
         # Check the file size (example: limit to 3 MB)
         if file.content_length > 3 * 1024 * 1024:  # 3 MB in bytes
+<<<<<<< HEAD
             return render_template("index.html", error="You can only upload a maximum of 3MB per image.", results=[], history=[])
+=======
+            return render_template("index.html", error="You can only upload a maximum of 3MB per image.", results=[])
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 
         if file:
             filename = secure_filename(file.filename)
@@ -368,6 +462,7 @@ def upload():
 
             # Generate the caption, description, and category for the uploaded image
             caption = generate_caption(file_path)
+<<<<<<< HEAD
             first_description, second_description, third_description = generate_predicted_description(file_path)
             category = generate_category(file_path)
             
@@ -389,6 +484,22 @@ def upload():
             db.session.commit()
 
             # Generate audio for caption and description
+=======
+            first_description, second_description = generate_predicted_description(file_path)
+            category = generate_category(file_path)
+            
+            print(f"Generated Caption: {caption}")
+            print(f"Generated Description: {first_description} {second_description}")
+            print(f"Determined Category: {category}")
+            
+            # Save the image data into the history table
+            # db.session.add()
+            # db.session.commit()
+            
+            # Optionally, update the user's history directly
+            generated_descriptions[filename] = first_description + "\n\n" + second_description
+
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
             caption_audio_path = os.path.join('static', 'audio', f"{file.filename}_caption.mp3")
             tts_caption = gTTS(text=caption, lang='en')
             tts_caption.save(caption_audio_path)
@@ -401,6 +512,7 @@ def upload():
             tts_description = gTTS(text=second_description, lang='en')
             tts_description.save(description_audio_path)
 
+<<<<<<< HEAD
             description_audio_path = os.path.join('static', 'audio', f"{file.filename}_description.mp3")
             tts_description = gTTS(text=third_description, lang='en')
             tts_description.save(description_audio_path)
@@ -409,20 +521,28 @@ def upload():
             upload_history = History.query.filter_by(user_id=current_user.id).order_by(History.created_at.desc()).all()
             upload_history = upload_history[:15]  # Limit to the most recent 15 entries
 
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
             return render_template(
                 'result.html', 
                 filename=filename, 
                 caption=caption, 
                 first_description=first_description, 
+<<<<<<< HEAD
                 second_description=second_description,
                 third_description=third_description,
                 category=category,
                 current_user=current_user,
                 upload_history=upload_history  # Pass the history to the result.html template
+=======
+                second_description=second_description, 
+                category=category,
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
             )
 
     return render_template('index.html')
 
+<<<<<<< HEAD
 @app.route('/history_image/<filename>', methods=['GET'])
 @login_required
 def history_image(filename):
@@ -447,3 +567,10 @@ def history_image(filename):
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port=8080)
+=======
+# Remove the db.create_all() here and instead, handle migrations with Flask-Migrate
+
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f

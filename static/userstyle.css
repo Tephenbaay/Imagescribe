@@ -2,7 +2,11 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
+<<<<<<< HEAD
     background-color: #E5E4E2;
+=======
+    background-color: #ECF2FF;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     background-image: url('/static/images/ava7.png');
     background-size: 600px;
     background-position-x: 900px;
@@ -28,25 +32,39 @@ body {
 }
 
 h1{
+<<<<<<< HEAD
     color: #36454F;
+=======
+    color: #645CBB;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     font-size: 55px;
     margin-top: 100px;
     margin-bottom: 100px;
     margin-left: auto;
     margin-right: 900px;
     text-align: center;
+<<<<<<< HEAD
     font-family: Arial black, Helvetica, sans-serif;
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 }
 
 h2{
     font-size: 35px;
+<<<<<<< HEAD
     font-family: Arial, Helvetica, sans-serif;
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     color: #1e1b3a;
 }
 
 /* Container for the login form */
 .container {
+<<<<<<< HEAD
     background-color: #A9A9A9;
+=======
+    background-color: #E3DFFD;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     padding: 30px;
     border-radius: 35px;
     width: 300px;
@@ -99,6 +117,7 @@ a {
 a:hover {
     text-decoration: underline;
 }
+<<<<<<< HEAD
 
 @media (max-width: 700px) {
     h1{
@@ -117,3 +136,5 @@ a:hover {
         top: 55px;
     }
 }
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f

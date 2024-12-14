@@ -11,7 +11,11 @@ model = Xception(include_top=False, pooling='avg')
 
 # Directory where your COCO images are stored
 # Update this path to where your COCO images are located
+<<<<<<< HEAD
 directory = r'C:\Users\Admin\Documents\image-caption-generator-main\data\train2017'  # Update this path
+=======
+directory = r'C:\Users\Admin\Documents\ImageScribe\data\train2017'  # Update this path
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 
 # Load existing features if available, or initialize an empty dictionary
 if os.path.exists('features.pkl'):

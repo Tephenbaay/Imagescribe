@@ -89,6 +89,7 @@ p {
 a {
     color: black;
 }
+<<<<<<< HEAD
 
 @media (max-width: 390px) {
     h1{
@@ -107,3 +108,5 @@ a {
         top: 55px;
     }
 }
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f

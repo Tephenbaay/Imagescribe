@@ -1,14 +1,22 @@
 /* General styles */
 body {
     font-family: Arial, sans-serif;
+<<<<<<< HEAD
     background-color: #E5E4E2;
+=======
+    background-color: #ECF2FF;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     margin: 0;
     padding: 0;
 }
 
 /* Sticky Header */
 header {
+<<<<<<< HEAD
     background-color: transparent;
+=======
+    background-color: #645CBB;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -36,7 +44,11 @@ header {
     flex: 1;
     overflow-y: auto; /* Allows scrolling for the content */
     padding: 50px;
+<<<<<<< HEAD
     background-color: #E5E4E2;
+=======
+    background-color: #ECF2FF;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     scrollbar-width: none; /* For Firefox */
     margin-left: 13%;
 }
@@ -48,20 +60,31 @@ header {
 
 /* Sticky container at the bottom */
 .container {
+<<<<<<< HEAD
     background-color: #A9A9A9;
+=======
+    background-color: #645CBB;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     padding: 10px;
     position: fixed;
     bottom: 0; /* Sticks to the bottom of the screen */
     width: 50%;
+<<<<<<< HEAD
     margin-left: 15%;
+=======
+    margin-left: 30%;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     z-index: 1000;
     border-radius: 30px;
 }
 
+<<<<<<< HEAD
 .text-center{
     text-align: center;
 }
 
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 /* Form styling */
 .form-group {
     margin-bottom: 10px;
@@ -76,14 +99,23 @@ header {
 .form-control {
     padding: 10px;
     border-radius: 5px;
+<<<<<<< HEAD
     border: #E5E4E2;
     background-color: #E5E4E2;
+=======
+    border: #BFACE2;
+    background-color: #BFACE2;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     width: 67%;
     margin-left: 10%;
 }
 
 .btnsuccess{
+<<<<<<< HEAD
     background-color: #E5E4E2;
+=======
+    background-color: #BFACE2;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     color: black;
     padding: 10px 20px;
     border: none;
@@ -108,7 +140,11 @@ header {
 }
 
 .btn-success {
+<<<<<<< HEAD
     background-color: #E5E4E2;
+=======
+    background-color: #BFACE2;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     color: black;
     padding: 10px 20px;
     border: none;
@@ -118,12 +154,16 @@ header {
 }
 
 .btn-success:hover {
+<<<<<<< HEAD
     background-color: #A9A9A9;
 }
 
 li{
     text-align: left;
     margin-left: -100px;
+=======
+    background-color: #76619e;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 }
 
 /* Image and result styling */
@@ -137,6 +177,7 @@ img {
 }
 
 h2, h3 {
+<<<<<<< HEAD
     text-align: left;
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
@@ -156,6 +197,14 @@ h1 {
 
 hr {
     border: 1px solid #36454F;
+=======
+    color: #000000;
+    text-align: left;
+}
+
+hr {
+    border: 1px solid #645CBB;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 }
 
 /* Add some padding for the buttons */
@@ -163,6 +212,7 @@ hr {
     margin-top: 10px;
 }
 
+<<<<<<< HEAD
 .btn2{
     display: inline-block; /* Align buttons in a line */
     margin: 0 10px; /* Space between buttons */
@@ -190,6 +240,15 @@ hr {
     box-sizing: border-box;
     position: fixed;
     margin-top: -7%;
+=======
+.sidebar {
+    background-color: #645CBB;
+    width: 250px;
+    height: 1000px;
+    padding: 80px;
+    box-sizing: border-box;
+    position: fixed;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 }
 
 .user-account {
@@ -202,6 +261,7 @@ hr {
     border-radius: 10px;
 }
  
+<<<<<<< HEAD
 .user{
     margin-top: 10px;
     margin-right: 76%;
@@ -245,6 +305,16 @@ hr {
 
 .btn1{
     background-color: #A9A9A9;
+=======
+.btn0{
+    background-color: #645CBB;
+    border-radius: 10px;
+
+}
+
+.btn1{
+    background-color: #645CBB;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     border-radius: 10px;
 }
 
@@ -257,17 +327,21 @@ hr {
 
 h4{
     font-size: 30px;
+<<<<<<< HEAD
     margin-top: 42%;
     margin-left: -17%;
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
     color: #333;
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 }
 
 h2 {
     margin-top: 0;
     font-size: 30px;
     margin-left: 0%;
+<<<<<<< HEAD
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
     color: #333;
@@ -275,13 +349,18 @@ h2 {
 
 p{
     display: none;
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 }
 
 .history-entry {
     margin-top: 10px;
     font-size: 14px;
     margin-left: -60%;
+<<<<<<< HEAD
     font-family: Arial, Helvetica, sans-serif;
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 }
 
 .category-container {
@@ -363,6 +442,7 @@ p{
         margin-left: 0;
     }
 }
+<<<<<<< HEAD
 
 /* Adjust margin for mobile view */
 @media (max-width: 768px) {
@@ -658,3 +738,5 @@ p{
   .list-group-item button:hover {
     background: rgba(94, 89, 69, 0.1);
   }
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f

@@ -2,7 +2,11 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
+<<<<<<< HEAD
     background-color: #E5E4E2;
+=======
+    background-color: #ECF2FF;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     background-image: url('/static/images/ava6.png');
     background-size: 600px;
     background-position-x: 900px;
@@ -11,20 +15,30 @@ body {
 }
 
 h1{
+<<<<<<< HEAD
     color: #36454F;
+=======
+    color: #645CBB;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     font-size: 55px;
     margin-top: 100px;
     margin-bottom: 100px;
     margin-left: auto;
     margin-right: 900px;
     text-align: center;
+<<<<<<< HEAD
     font-family: Arial black, Helvetica, sans-serif;
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 }
 
 h2{
     font-size: 35px;
     color: #1e1b3a;
+<<<<<<< HEAD
     font-family: Arial, Helvetica, sans-serif;
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 }
 
        /* Add some basic styling for the error state */
@@ -35,7 +49,10 @@ h2{
     color: red;
     font-size: 0.9em;
     display: none; /* Hidden by default */
+<<<<<<< HEAD
     font-family: Arial, Helvetica, sans-serif;
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 }
 .error-message.show {
     display: block; /* Show when there's an error */
@@ -43,7 +60,11 @@ h2{
 
 /* Container for the login form */
 .container {
+<<<<<<< HEAD
     background-color: #A9A9A9;
+=======
+    background-color: #E3DFFD;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     padding: 30px;
     border-radius: 35px;
     width: 300px;
@@ -79,7 +100,11 @@ input {
 
 button.btn {
     width: 50%;
+<<<<<<< HEAD
     background-color: #E5E4E2;
+=======
+    background-color: #BFACE2;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     color: black;
     padding: 10px 20px;
     margin-top: 10px;
@@ -90,14 +115,21 @@ button.btn {
 }
 
 button.btn:hover {
+<<<<<<< HEAD
     background-color: #A9A9A9;
+=======
+    background-color: #E5D1FA;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 }
 
 /* Optional link style */
 a {
     text-decoration: none;
     color: black;
+<<<<<<< HEAD
     font-family: Arial, Helvetica, sans-serif;
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 }
 a:hover {
     text-decoration: underline;
@@ -127,6 +159,7 @@ a:hover {
 }
 
 .eyecon{
+<<<<<<< HEAD
     position: fixed;
     width: 35px;
     cursor: pointer;
@@ -155,3 +188,11 @@ a:hover {
         top: 485px;
     }
 }
+=======
+    position: absolute;
+    width: 35px;
+    cursor: pointer;
+    right: 1275px;
+    top: 577px;
+}
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f

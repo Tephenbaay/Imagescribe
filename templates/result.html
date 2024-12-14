@@ -12,6 +12,7 @@
 </head>
 <body>
   <!-- Sticky Header -->
+<<<<<<< HEAD
   <div class="tab">
           <p>ImageScribe</p>
 
@@ -27,10 +28,27 @@
     </div>
     <h1 class="logo"></h1>
     <div class="header-icons"></div>
+=======
+  <header class="header">
+    <h1 class="logo">ImageScribe</h1>
+    <div class="header-icons">
+      <div class="tab">
+        <button class="btn0" onclick="window.location.href='/chat'">
+          <img src="{{ url_for('static', filename='images/tab.png') }}" alt="tab button" width="40px" height="40px">
+        </button>
+      </div>
+      <div class="back">
+        <button class="btn0" onclick="window.location.href='/home'">
+          <img src="{{ url_for('static', filename='images/out.png') }}" alt="out button" width="40px" height="40px">
+        </button>
+      </div>
+    </div>
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
   </header>
 
   <!-- Sidebar -->
   <div class="main-wrapper">
+<<<<<<< HEAD
     <img class="menu" id="menu-btn" src="menu.png" alt="menu button" style="width: 40px; cursor: pointer;">
 <div class="sidebar" id="sidebar">
     <h1 class="logo">ImageScribe</h1>
@@ -116,6 +134,71 @@
     <button class="btnn" onclick="window.location.href='/home'">
       <img src="/static/images/out.png/" alt="out button" width="40px" height="40px">
     </button>
+=======
+    <div class="sidebar">
+      <div class="user-account">
+        <img src="static/images/user.png" alt="user account">
+        <button class="btn1" onclick="window.location.href='/user'"><b>User Account</b></button>
+      </div>
+      <h4 class="text-center">History</h4>
+      <ul class="list-group">
+        {% for history in upload_history %}
+        <li class="list-group-item">
+          <a href="{{ url_for('view_upload', filename=history.filename) }}">{{ history.filename }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="text-center">
+        <img src="{{ url_for('static', filename='uploads/' + filename) }}" class="img-responsive img-thumbnail" style="max-height: 400px; max-width: 400px; float: right;">
+      </div>
+      <div class="text-center">
+        <a href="{{ url_for('static', filename='uploads/' + filename) }}" download="{{ filename }}" class="btn12">Download Image</a>
+      </div>
+     <br>
+      <h2>Caption: <i id="caption"></i>
+        <button onclick="playAudio('{{ caption }}')">
+          <img src="{{ url_for('static', filename='images/speaker.png') }}" alt="Play caption" width="24px">
+        </button>
+      </h2>
+
+      <h2>Description:</h2>
+      <h3 id="first-description"></h3>
+      <h3 id="second-description"></h3>
+      <button onclick="playDescriptionAudio()">
+        <img src="{{ url_for('static', filename='images/speaker.png') }}" alt="Play description" width="24px">
+      </button>
+
+      <h3>Image Category: <i>{{ category }}</i></h3>
+      <div class="text-center">
+        <button onclick="downloadTextFile()">Download Captions and Descriptions</button>
+      </div>
+      <div class="text-center">
+        <button onclick="downloadImage()">Download Image</button>
+      </div>
+      <hr>
+      <br>
+    </div>
+  </div>
+
+  <div class="container">
+    <form class="form-horizontal" action="/submit" method="post" enctype="multipart/form-data" onsubmit="showLoading()">
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="pwd"></label>
+        <div class="col-sm-10">
+          <input type="file" class="form-control" name="my_image" id="pwd" multiple required>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-success" id="submit-btn">Submit</button>
+        </div>
+      </div>
+    </form>
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
   </div>
 
   <!-- Full-screen Loading Overlay -->
@@ -133,10 +216,17 @@
     }
 
     function downloadImage() {
+<<<<<<< HEAD
       const imageUrl = "{{ url_for('static', filename='uploads/' + filename) }}";
       const link = document.createElement('a');
       link.href = imageUrl;
       link.download = "{{ filename }}";
+=======
+      const imageUrl = "{{ url_for('static', filename='uploads/' + filename) }}"; // Ensure this points to the correct image URL
+      const link = document.createElement('a');
+      link.href = imageUrl;
+      link.download = "{{ filename }}"; // Set the download file name as the image filename
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
       link.click();
     }
 
@@ -146,7 +236,11 @@
     }
 
     function playDescriptionAudio() {
+<<<<<<< HEAD
       const descriptionText = "{{ first_description }} {{ second_description }} {{ third_description }}";
+=======
+      const descriptionText = "{{ first_description }} {{ second_description }}";
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
       const speech = new SpeechSynthesisUtterance(descriptionText);
       speechSynthesis.speak(speech);
     }
@@ -155,13 +249,21 @@
       const captionText = "{{ caption }}";
       const firstDescriptionText = "{{ first_description }}";
       const secondDescriptionText = "{{ second_description }}";
+<<<<<<< HEAD
       const thirdDescriptionText = "{{ third_description }}";
       const textContent = `Caption: ${captionText}\n\nDescription:\n${firstDescriptionText}\n${secondDescriptionText}\n${thirdDescriptionText}`;
+=======
+      const textContent = `Caption: ${captionText}\n\nDescription:\n${firstDescriptionText}\n${secondDescriptionText}`;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 
       const blob = new Blob([textContent], { type: 'text/plain' });
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
+<<<<<<< HEAD
       link.download = "caption_and_description.txt";
+=======
+      link.download = "caption_and_description.txt"; // Default filename
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
       link.click();
     }
 
@@ -180,6 +282,7 @@
       type();
     }
 
+<<<<<<< HEAD
     document.addEventListener("DOMContentLoaded", function () {
     const menuButton = document.getElementById("menu-btn");
     const sidebar = document.getElementById("sidebar");
@@ -199,16 +302,25 @@
   sidebar.classList.toggle("visible");
 });
 
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     document.addEventListener('DOMContentLoaded', function () {
       const captionText = "{{ caption }}";
       const firstDescriptionText = "{{ first_description }}";
       const secondDescriptionText = "{{ second_description }}";
+<<<<<<< HEAD
       const thirdDescriptionText = "{{ third_description }}";
 
       typeEffect("caption", captionText, 20); 
       typeEffect("first-description", firstDescriptionText, 20); 
       typeEffect("second-description", secondDescriptionText, 20); 
       typeEffect("third-description", thirdDescriptionText, 20);
+=======
+
+      typeEffect("caption", captionText, 20); // Typing effect for caption
+      typeEffect("first-description", firstDescriptionText, 20); // First description
+      typeEffect("second-description", secondDescriptionText, 20); // Second description
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     });
   </script>
 </body>

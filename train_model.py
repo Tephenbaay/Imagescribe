@@ -207,7 +207,11 @@ def rephrase_and_expand_captions(captions, generated_caption):
 # Updated train_model function with relevance filtering
 # Function to process each image and save the generated caption and expanded description
 def train_model():
+<<<<<<< HEAD
     image_directory = r'C:\Users\Admin\Documents\image-caption-generator-main\data\train2017'
+=======
+    image_directory = r'C:\Users\Admin\Documents\ImageScribe\data\train2017'
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     descriptions = load_descriptions('data/captions_train2017.json')
     print(f"Loaded descriptions with {len(descriptions)} descriptions.")
     
@@ -234,7 +238,11 @@ def train_model():
                     caption_file.write(f"Image: {filename} | Generated Caption: {caption}\n")
                     description_file.write(f"Image: {filename} | Generated Description: {description}\n")
                     
+<<<<<<< HEAD
                     category_folder = os.path.join(r'C:\image-caption-generator-main\categories', category)
+=======
+                    category_folder = os.path.join(r'C:\ImageScribe\categories', category)
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
                     os.makedirs(category_folder, exist_ok=True)
                     save_path = os.path.join(category_folder, filename)
                     os.rename(os.path.join(image_directory, filename), save_path)
@@ -244,6 +252,10 @@ def train_model():
                 else:
                     print(f"No description found for {image_id}")
 
+<<<<<<< HEAD
 # Main execution
 if __name__ == '__main__':
     train_model()
+=======
+
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f

@@ -1,15 +1,25 @@
 /* General styles */
 body {
     font-family: Arial, sans-serif;
+<<<<<<< HEAD
     background-color: #E5E4E2;
     margin: 0;
     padding: 0;
     overflow: hidden;
+=======
+    background-color: #ECF2FF;
+    margin: 0;
+    padding: 0;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 }
 
 /* Sticky Header */
 header {
+<<<<<<< HEAD
     background-color: transparent;
+=======
+    background-color: #645CBB;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -35,12 +45,20 @@ header {
 /* Scrollable main content */
 .main-content {
     flex: 1;
+<<<<<<< HEAD
     width: 250px; /* Adjust the width of the sidebar as needed */
     overflow: hidden; /* Allows scrolling for the content */
     padding: 50px;
     background-color: #E5E4E2;
     margin-left: 13%;
     height: 100%;
+=======
+    overflow-y: auto; /* Allows scrolling for the content */
+    padding: 50px;
+    background-color: #ECF2FF;
+    scrollbar-width: none; /* For Firefox */
+    margin-left: 13%;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 }
 
 /* For Webkit browsers (Chrome, Safari) */
@@ -50,6 +68,7 @@ header {
 
 /* Sticky container at the bottom */
 .container {
+<<<<<<< HEAD
     background-color: #A9A9A9;
     padding: 10px;
     position: fixed;
@@ -57,6 +76,15 @@ header {
     width: 50%;
     margin-left: 30%;
     z-index: 100;
+=======
+    background-color: #645CBB;
+    padding: 10px;
+    position: fixed;
+    bottom: 0; /* Sticks to the bottom of the screen */
+    width: 50%;
+    margin-left: 30%;
+    z-index: 1000;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     border-radius: 30px;
 }
 
@@ -75,13 +103,21 @@ header {
     padding: 10px;
     border-radius: 5px;
     border: #BFACE2;
+<<<<<<< HEAD
     background-color: #E5E4E2;
+=======
+    background-color: #BFACE2;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     width: 67%;
     margin-left: 10%;
 }
 
 .btn-success {
+<<<<<<< HEAD
     background-color: #E5E4E2;
+=======
+    background-color: #BFACE2;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     color: black;
     padding: 10px 20px;
     border: none;
@@ -90,7 +126,11 @@ header {
 }
 
 .btn-success:hover {
+<<<<<<< HEAD
     background-color: #A9A9A9;
+=======
+    background-color: #E5D1FA;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 }
 
 /* Image and result styling */
@@ -106,6 +146,7 @@ img {
 h2, h3 {
     color: #000000;
     text-align: left;
+<<<<<<< HEAD
     font-family: 'Roboto', sans-serif;
 }
 
@@ -116,6 +157,8 @@ h1 {
     position: fixed;
     font-size: 30px;
     font-family: 'Roboto', sans-serif;
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 }
 
 hr {
@@ -128,6 +171,7 @@ hr {
 }
 
 .sidebar {
+<<<<<<< HEAD
     background-color: #A9A9A9;
     width: 250px;
     height: 1050px;
@@ -135,6 +179,14 @@ hr {
     box-sizing: border-box;
     position: fixed;
     margin-top: -7%;
+=======
+    background-color: #645CBB;
+    width: 250px;
+    height: 1000px;
+    padding: 80px;
+    box-sizing: border-box;
+    position: fixed;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 }
 
 .user-account {
@@ -146,6 +198,7 @@ hr {
     color: #805f31;
     border-radius: 10px;
 }
+<<<<<<< HEAD
 
 .user{
     margin-top: 10px;
@@ -211,11 +264,26 @@ hr {
 
 .btn1{
     background-color: #A9A9A9;
+=======
+ 
+.btn0{
+    background-color: #645CBB;
+    border-radius: 10px;
+
+}
+
+.btn1{
+    background-color: #645CBB;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     border-radius: 10px;
 }
 
 .user-account img {
+<<<<<<< HEAD
     margin-top: 50%;
+=======
+    margin-top: 0%;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     width: 40px;
     height: 40px;
     margin-left: -60%;
@@ -225,6 +293,7 @@ h2 {
     margin-top: 0;
     font-size: 30px;
     margin-left: 0%;
+<<<<<<< HEAD
     font-family: 'Roboto', sans-serif;
 }
 
@@ -233,13 +302,18 @@ h4{
     margin-top: -22%;
     margin-left: -17%;
     font-family: 'Roboto', sans-serif;
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 }
 
 .history-entry {
     margin-top: 10px;
     font-size: 14px;
     margin-left: -60%;
+<<<<<<< HEAD
     font-family: 'Roboto', sans-serif;
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 }
 
 .category-container {
@@ -268,6 +342,7 @@ h4{
     border-color: #d29898; /* Color change on focus */
 }
 
+<<<<<<< HEAD
 li{
     text-align: left;
     margin-left: -100px;
@@ -277,6 +352,8 @@ li{
     display: none;
 }
 
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 /* Full-screen Loading Overlay */
 .loading {
     display: none;
@@ -315,10 +392,13 @@ li{
     cursor: pointer;
     margin-left: 10px;
   }
+<<<<<<< HEAD
   
 h2{
     display: none;
 }
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 
 /* Adjust margin for mobile view */
 @media (max-width: 768px) {
@@ -334,6 +414,7 @@ h2{
         margin-left: 0;
     }
 }
+<<<<<<< HEAD
 
 @media (max-width: 700px) {
     h2{
@@ -562,3 +643,5 @@ h2{
   .list-group-item button:hover {
     background: rgba(94, 89, 69, 0.1);
   }
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f

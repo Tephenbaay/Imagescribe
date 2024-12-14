@@ -2,7 +2,11 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     padding: 50px;
+<<<<<<< HEAD
     background-color: #E5E4E2;
+=======
+    background-color: #ECF2FF;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     background-image: url('/static/images/ava5.png/');
     background-repeat: no-repeat;
     background-position-x: 1150px;
@@ -18,6 +22,7 @@ body {
     margin-left: 20px;
     margin-top: 20px;
     margin-bottom: 90px;
+<<<<<<< HEAD
     background-color: #36454F;
 }
 
@@ -43,6 +48,30 @@ p {
     margin-right: 890px;
     margin-left: 20px;
     font-family: Arial, Helvetica, sans-serif;
+=======
+    background-color: #645CBB;
+}
+
+h1 {
+    color: #645CBB;;
+    font-size: 100px;
+    margin-right: 910px;
+    margin-left: 20px;
+}
+
+h4 {
+    color: #645CBB;
+    font-size: 35px;
+    margin-right: 890px;
+    margin-left: 20px;
+}
+
+p {
+    color: #645CBB;
+    font-size: 20px;
+    margin-right: 890px;
+    margin-left: 20px;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 }
 
 .buttons {
@@ -51,7 +80,11 @@ p {
     margin-left: 20px;
 }
 .btn {
+<<<<<<< HEAD
     background-color: #A9A9A9;
+=======
+    background-color: #BFACE2;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     color: black;
     padding: 25px 70px;
     margin: 30px;
@@ -74,36 +107,61 @@ p {
 }
 
 .btn1{
+<<<<<<< HEAD
     color: #36454F;
     margin-right: 220px;
     margin-left: 0px;
     padding: 10px 20px;
     background-color: #E5E4E2;
+=======
+    color: #645CBB;
+    margin-right: 220px;
+    margin-left: 0px;
+    padding: 10px 20px;
+    background-color: #ECF2FF;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     border: #FFF8E8;
     font-size: 30px;
 }
 
 .btn2{
+<<<<<<< HEAD
     color: #36454F;
     margin-right: 240px;
     margin-left: 0px;
     padding: 10px 20px;
     background-color: #E5E4E2;
+=======
+    color: #645CBB;
+    margin-right: 240px;
+    margin-left: 0px;
+    padding: 10px 20px;
+    background-color: #ECF2FF;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     border: #FFF8E8;
     font-size: 30px;
 }
 
 .btn3{
+<<<<<<< HEAD
     color: #36454F;
     margin-right: 0px;
     margin-left: 0px;
     padding: 10px 20px;
     background-color: #E5E4E2;
+=======
+    color: #645CBB;
+    margin-right: 0px;
+    margin-left: 0px;
+    padding: 10px 20px;
+    background-color: #ECF2FF;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     border: #FFF8E8;
     font-size: 30px;
 }
 
 .btn1:hover{
+<<<<<<< HEAD
     color: #A9A9A9;
 }
 
@@ -227,4 +285,22 @@ a:hover{
         font-size: 20px;
         position: fixed;
     }
+=======
+    color: #E5D1FA;
+}
+
+.btn2:hover{
+    color: #E5D1FA;
+}
+.btn3:hover{
+    color: #E5D1FA;
+}
+
+a{
+    color: #645CBB;
+}
+ 
+a:hover{
+    color: #E5D1FA;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 }

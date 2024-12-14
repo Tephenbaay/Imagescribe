@@ -4,12 +4,16 @@
   <title>ImageScribe</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+<<<<<<< HEAD
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
   <link rel="icon" href="/static/logo.png/">
   <link rel="stylesheet" href="{{ url_for('static', filename='chat.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='loading.css') }}"> <!-- Link to new CSS file -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<<<<<<< HEAD
 
 </head>
 <body>
@@ -51,16 +55,59 @@
       {% endfor %}
   </ul>
     </div>
+=======
+</head>
+<body>
+  <!-- Sticky Header -->
+  <header class="header">
+    <h1 class="logo">ImageScribe</h1>
+    <div class="header-icons">
+      <div class="tab">
+        <button class="btn0" onclick="window.location.href='/chat'">
+          <img src="static/images/tab.png" alt="tab button" width="40px" height="40px">
+        </button>
+      </div>
+      <div class="back">
+        <button class="btn0" onclick="window.location.href='/home'">
+          <img src="static/images/out.png" alt="out button" width="40px" height="40px">
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main content wrapper -->
+  <div class="main-wrapper">
+    <aside class="sidebar">
+      <div class="user-account">
+        <img src="static/images/user.png" alt="user account">
+        <button class="btn1" onclick="window.location.href='/user'"><b>User Account</b></button>
+      </div>
+
+      <h2>History</h2>
+      {% if history %}
+        {% for entry in history %}
+          <div class="history-entry" onclick="showHistory('{{ loop.index0 }}')">
+            <p>{{ entry.caption[:20] }}...</p>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>No history available.</p>
+      {% endif %}
+    </aside>
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 
     <!-- Category Select Dropdown -->
 
     <!-- Display Results -->
     <div class="main-content content">
+<<<<<<< HEAD
       <div class="content">
         <div class="typing-effect" id="typing-effect">IMAGESCRIBE</div>
         
       </div>
     
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
       {% if results %}
         {% for result in results %}
           <div class="entry">
@@ -118,11 +165,14 @@
         </div>
       </form>
     </div>
+<<<<<<< HEAD
     <div class="back">
       <button class="btnn" onclick="window.location.href='/home'">
         <img src="static/images/out.png" alt="out button" width="40px" height="40px">
       </button>
     </div>
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
   </div>
 
   <!-- Full-screen Loading Overlay -->
@@ -134,6 +184,7 @@
   </div>
 
   <script>
+<<<<<<< HEAD
 
 document.addEventListener("DOMContentLoaded", function() {
     const menuButton = document.getElementById("menu-btn");
@@ -194,13 +245,37 @@ function typeText() {
 typeText();
 });
 
+=======
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     function showLoading() {
       document.getElementById('loading-overlay').style.display = 'flex'; 
       document.getElementById('submit-btn').disabled = true; 
     }
+<<<<<<< HEAD
   
   
 
+=======
+
+    function showHistory(index) {
+      const historyData = {{ history|default([])|tojson }};
+      const entry = historyData[index];
+      const mainContent = document.querySelector('.main-content');
+      mainContent.innerHTML = `
+        <div class="entry">
+          <img src="/static/${entry.img_path}" height="400px" width="400px">
+        </div>
+        <div>
+          <h2> Caption: ${entry.caption}</h2>
+          <img class="speaker-icon" src="static/images/speaker.png" onclick="new Audio('/static/${entry.caption_audio}').play()" alt="speaker">
+        </div>
+        <div>
+          <h3> Description: ${entry.description}</h3>
+          <img class="speaker-icon" src="static/images/speaker.png" onclick="new Audio('/static/${entry.description_audio}').play()" alt="speaker">
+        </div>
+      `;
+    }
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
   </script>
 
 </body>

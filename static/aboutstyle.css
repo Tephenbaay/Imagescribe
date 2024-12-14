@@ -2,8 +2,13 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     padding: 50px;
+<<<<<<< HEAD
     background-color: #E5E4E2;
     background-image: url('/static/images/ava3.png/');
+=======
+    background-color: #FFF8E8;
+    background-image: url('/static/images/ava3.png');
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     background-repeat: no-repeat;
     background-position-x: 1150px;
     background-position-y: 220px;
@@ -18,6 +23,7 @@ body {
     margin-left: 20px;
     margin-top: 20px;
     margin-bottom: 90px;
+<<<<<<< HEAD
     background-color: #36454F;
 }
 
@@ -35,6 +41,23 @@ p {
     margin-right: 890px;
     margin-left: 20px;
     font-family: Arial, Helvetica, sans-serif;
+=======
+    background-color: #674636;
+}
+
+h1 {
+    color: #674636;
+    font-size: 100px;
+    margin-right: 910px;
+    margin-left: 20px;
+}
+
+p {
+    color: #674636;
+    font-size: 20px;
+    margin-right: 890px;
+    margin-left: 20px;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
 }
 
 .buttons {
@@ -66,36 +89,61 @@ p {
 }
 
 .btn1{
+<<<<<<< HEAD
     color: #36454F;
     margin-right: 220px;
     margin-left: 0px;
     padding: 10px 20px;
     background-color: #E5E4E2;
+=======
+    color: #674636;
+    margin-right: 220px;
+    margin-left: 0px;
+    padding: 10px 20px;
+    background-color: #FFF8E8;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     border: #F9E8C9;
     font-size: 30px;
 }
 
 .btn2{
+<<<<<<< HEAD
     color: #36454F;
     margin-right: 240px;
     margin-left: 0px;
     padding: 10px 20px;
     background-color: #E5E4E2;
+=======
+    color: #674636;
+    margin-right: 240px;
+    margin-left: 0px;
+    padding: 10px 20px;
+    background-color: #FFF8E8;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     border: #F9E8C9;
     font-size: 30px;
 }
 
 .btn3{
+<<<<<<< HEAD
     color: #36454F;
     margin-right: 0px;
     margin-left: 0px;
     padding: 10px 20px;
     background-color: #E5E4E2;
+=======
+    color: #674636;
+    margin-right: 0px;
+    margin-left: 0px;
+    padding: 10px 20px;
+    background-color: #FFF8E8;
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
     border: #F9E8C9;
     font-size: 30px;
 }
 
 .btn1:hover{
+<<<<<<< HEAD
     color: #A9A9A9;
 }
 
@@ -214,3 +262,14 @@ p {
         position: fixed;
     }
 }
+=======
+    color: #854000;
+}
+
+.btn2:hover{
+    color: #854000;
+}
+.btn3:hover{
+    color: #854000;
+}
+>>>>>>> 057cc2618fadd523b2b5611d26eb1d71b1f8a68f
